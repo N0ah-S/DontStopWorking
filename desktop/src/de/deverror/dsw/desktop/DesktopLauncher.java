@@ -7,6 +7,8 @@ import de.deverror.dsw.Main;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.width = 1400;
+		config.height = config.width * 9 / 16;
 		new LwjglApplication(new Main(), config);
 	}
 }

@@ -3,14 +3,18 @@ package de.deverror.dsw.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.ScreenUtils;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.moving.Player;
+import de.deverror.dsw.util.Assets;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 
@@ -29,6 +33,8 @@ public class GameScreen implements Screen {
     AssetManager assets;
     TextureAtlas textureAtlas;
 
+    SortRenderer renderer;
+
     public GameScreen(AssetManager assets){
         entities = new ArrayList<>();
 
@@ -38,11 +44,13 @@ public class GameScreen implements Screen {
         cam = new OrthographicCamera();
         batch = new SpriteBatch();
 
-        tiledMap = new TiledMap();
+        tiledMap = new TmxMapLoader().load("map.tmx");
         player = new Player(this);
 
         this.assets = assets;
         textureAtlas = new TextureAtlas();
+
+        renderer = new SortRenderer(this);
     }
     @Override
     public void show() {
@@ -51,9 +59,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        updateCamera();
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
+
+        updateCamera();
+        ScreenUtils.clear(1, 0, 0, 1);
+        batch.begin();
+        renderer.render(batch);
+        batch.end();
     }
 
     @Override
