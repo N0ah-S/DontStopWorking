@@ -46,6 +46,7 @@ public class GameScreen implements Screen {
 
         tiledMap = new TmxMapLoader().load("map.tmx");
         player = new Player(this);
+        entities.add(player);
 
         this.assets = assets;
         textureAtlas = new TextureAtlas();

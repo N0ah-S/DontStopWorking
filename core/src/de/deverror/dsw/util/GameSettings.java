@@ -9,6 +9,6 @@ public class GameSettings {
     public static final int RIGHT = Input.Keys.D;
     public static final int SCREAM = Input.Keys.SPACE;
 
-    public static final float PLAYERSPEED = 30f;
+    public static final float PLAYERSPEED = 160f;
     public static final float MAXINTEREST = 15;
 }
