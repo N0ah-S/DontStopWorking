@@ -7,6 +7,8 @@ public class GameSettings {
     public static final int DOWN = Input.Keys.S;
     public static final int LEFT = Input.Keys.A;
     public static final int RIGHT = Input.Keys.D;
+    public static final int SCREAM = Input.Keys.SPACE;
 
     public static final float PLAYERSPEED = 30f;
+    public static final float MAXINTEREST = 15;
 }

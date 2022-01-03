@@ -15,4 +15,8 @@ public class StaticUtil {
     public static int height(){
         return Gdx.graphics.getHeight();
     }
+
+    public static float len(float x, float y){
+        return (float) Math.sqrt(x*x+y*y);
+    }
 }
