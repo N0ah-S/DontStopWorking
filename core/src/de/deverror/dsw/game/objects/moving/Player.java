@@ -20,6 +20,7 @@ public class Player implements Entity {
 
     Animator animator;
     int dir;
+
     public Player(GameScreen main){
         this.main = main;
         BodyDef bodyDef = new BodyDef();
@@ -98,7 +99,7 @@ public class Player implements Entity {
         for(Entity entity : main.entities){
             if(entity instanceof Worker){
                 float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                if(dist < 192) ((Worker) entity).motivate(15);
+                if(dist < 192) ((Worker) entity).motivate(9);
             }
         }
     }

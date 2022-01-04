@@ -31,7 +31,7 @@ public class WorldManager {
         notOk = main.textureAtlas.findRegion("notOk");
         warning = main.assets.get(Assets.warning);
 
-        coffee = new CoffeeMachine(810, 740, main);
+        coffee = new CoffeeMachine(810, 804, main);
 
     }
 

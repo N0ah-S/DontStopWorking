@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.crashinvaders.vfx.VfxManager;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
@@ -22,6 +23,7 @@ import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.util.Assets;
 import de.deverror.dsw.util.ShapeUtils;
 import de.deverror.dsw.util.StaticUtil;
+import com.crashinvaders.vfx.effects.GaussianBlurEffect;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 import static de.deverror.dsw.util.GameSettings.*;
@@ -44,6 +46,8 @@ public class GameScreen implements Screen {
     public TextureAtlas textureAtlas;
 
     SortRenderer renderer;
+    private VfxManager vfx;
+    private GaussianBlurEffect vfxEffect;
 
     public GameScreen(AssetManager assets){
         entities = new ArrayList<>();
@@ -81,7 +85,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        GdxAI.getTimepiece().update(delta);
 
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
@@ -129,8 +132,8 @@ public class GameScreen implements Screen {
         cam.viewportWidth = width();
         cam.zoom = (64f*TILESINVIEW)/width();
         cam.viewportHeight = height();
-        cam.position.x = player.getX();
-        cam.position.y = player.getY();
+        cam.position.x = (int) player.getX();
+        cam.position.y = (int) player.getY();
         cam.update();
         batch.setProjectionMatrix(cam.combined);
     }

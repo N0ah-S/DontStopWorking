@@ -36,7 +36,7 @@ public class ParticleRenderer {
 
     public void spawn(int id, int direction, int distribution, float x, float y, float speed, float rotSpeed, int amount, float duration){
         ParticleType type = particles.get(id);
-        for(int i = 0; i < amount; i++){
+        for(int i = 0; i < amount; i++) {
             double speedMultiplier = Math.random();
             double dir = (direction+distribution -2*distribution*Math.random())*(2*Math.PI)/360;
             type.addParticle(x, y, (float) (Math.cos(dir)*speed*speedMultiplier), (float) (Math.sin(dir)*speed*speedMultiplier), 0, (float)(rotSpeed*speedMultiplier), (float) (duration*Math.random()));

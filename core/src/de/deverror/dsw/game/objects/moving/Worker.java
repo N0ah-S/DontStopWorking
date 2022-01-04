@@ -173,7 +173,6 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity {
                     case Walking:
                         state = State.Coffee;
                         game.worldManager.coffee.makeCoffee(this);
-                        System.out.println("Make Coffee ");
                         break;
                     case GoingBack:
                         state = State.Working;
@@ -235,7 +234,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity {
     public void backToWork() {
         if(state == State.GoingBack) return;
         state = State.GoingBack;
-        motivate(2);
+        motivate(12);
 
         target(x + 50, y - 60);
         target(hx + 134,  y - 60);

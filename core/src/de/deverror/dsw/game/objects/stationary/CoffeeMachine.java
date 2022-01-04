@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.moving.Worker;
+import de.deverror.dsw.util.StaticUtil;
 
 public class CoffeeMachine implements Entity {
 
@@ -29,6 +30,7 @@ public class CoffeeMachine implements Entity {
         for (int i = 0; i < tex.length; i++) {
             tex[i] = game.textureAtlas.findRegion("coffee_machine/" + i); //dirty...
         }
+        //StaticUtil.getAnimation("coffee_machine/", 12, game.textureAtlas);
 
         game.entities.add(this);
     }
