@@ -70,7 +70,7 @@ public class GameScreen implements Screen {
     private BloomEffect bloom;
     private FxaaEffect fxaa;
 
-    public GameScreen(AssetManager assets){
+    public GameScreen(AssetManager assets) {
         entities = new ArrayList<>();
         this.assets = assets;
         textureAtlas = new TextureAtlas(Assets.ATLAS);
@@ -131,10 +131,10 @@ public class GameScreen implements Screen {
         updateCamera();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
                 (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
-        // Clean up internal buffers, as we don't need any information from the last render.
+
         vfx.cleanUpBuffers();
 
-        // Begin render to an off-screen buffer.
+
         vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
@@ -142,10 +142,7 @@ public class GameScreen implements Screen {
         batch.end();
 
         vfx.endInputCapture();
-
         vfx.applyEffects();
-
-        // Render result to the screen.
         vfx.renderToScreen();
 
         if(StaticUtil.key(Input.Keys.G)) debugRenderer.render(physicsWorld, cam.combined);
@@ -164,21 +161,6 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
     public void dispose() {
         batch.dispose();
         HUDBatch.dispose();
@@ -188,7 +170,7 @@ public class GameScreen implements Screen {
         bloom.dispose();
     }
 
-    private void updateCamera(){
+    private void updateCamera() {
         cam.viewportWidth = width();
         cam.viewportHeight = height();
         if(shakeTime > 0) {
@@ -258,4 +240,13 @@ public class GameScreen implements Screen {
     public void shake() {
         shakeTime = 1;
     }
+
+    @Override
+    public void pause() {}
+
+    @Override
+    public void resume() {}
+
+    @Override
+    public void hide() {}
 }
