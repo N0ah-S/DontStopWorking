@@ -8,6 +8,6 @@ public class EntitySortComparator implements Comparator<Entity> {
 
     @Override
     public int compare(Entity o1, Entity o2) {
-        return ( (int) o2.getY()) - ((int) o1.getY() );
+        return ( (int) o2.getSortY()) - ((int) o1.getSortY() );
     }
 }

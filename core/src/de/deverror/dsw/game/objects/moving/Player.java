@@ -59,6 +59,10 @@ public class Player implements Entity {
     public float getY() {
         return body.getPosition().y;
     }
+    @Override
+    public float getSortY(){
+        return getY();
+    }
 
     @Override
     public void render(SpriteBatch batch) {
@@ -99,7 +103,7 @@ public class Player implements Entity {
                         if(dist < 80) ((Reciever) entity).engage(0, 3);
                     }
                 }
-                walkcooldown = 3;
+                walkcooldown = 2;
             }
         }
 
@@ -111,7 +115,6 @@ public class Player implements Entity {
         for(Entity entity : main.entities){
             if(entity instanceof Reciever){
                 float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                if(dist < 192) ((Worker) entity).engage(1, 15);
                 if(dist < 192) ((Reciever) entity).engage(1, 15);
             }
         }
@@ -119,14 +122,6 @@ public class Player implements Entity {
 
     private void loadAnimations(){
         TextureAtlas atlas = new TextureAtlas(Assets.CHEFATLAS);
-        animator.addAnimation(0, new Animation(animator, getAnimation("chef_idleback", 11, atlas), 1f, 0));
-        animator.addAnimation(1, new Animation(animator, getAnimation("chef_idlefront", 11, atlas), 1f, 1));
-        animator.addAnimation(2, new Animation(animator, getAnimation("chef_idleleft", 11, atlas), 1f, 2));
-        animator.addAnimation(3, new Animation(animator, getAnimation("chef_idleright", 11, atlas), 1f, 3));
-        animator.addAnimation(4, new Animation(animator, getAnimation("chef_walkback", 7, atlas), 0.7f, 0));
-        animator.addAnimation(5, new Animation(animator, getAnimation("chef_walkfront", 11, atlas), 0.7f, 1));
-        animator.addAnimation(6, new Animation(animator, getAnimation("chef_walkleft", 8, atlas), 0.7f, 2));
-        animator.addAnimation(7, new Animation(animator, getAnimation("chef_walkright", 8, atlas), 0.7f, 3));
         animator.addAnimation(0, new Animation(animator, getIndexAnimation("chef_idleback", 11, atlas), 1f, 0));
         animator.addAnimation(1, new Animation(animator, getIndexAnimation("chef_idlefront", 11, atlas), 1f, 1));
         animator.addAnimation(2, new Animation(animator, getIndexAnimation("chef_idleleft", 11, atlas), 1f, 2));

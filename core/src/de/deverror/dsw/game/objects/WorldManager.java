@@ -31,8 +31,6 @@ public class WorldManager {
         notOk = main.textureAtlas.findRegion("notOk");
         warning = main.assets.get(Assets.warning);
 
-        coffee = new CoffeeMachine(810, 804, main);
-
     }
 
     public Worker registerWorker(Worker worker) {

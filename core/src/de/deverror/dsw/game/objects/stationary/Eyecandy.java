@@ -1,5 +1,6 @@
 package de.deverror.dsw.game.objects.stationary;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import de.deverror.dsw.game.GameScreen;
@@ -7,39 +8,20 @@ import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.Reciever;
 
 public class Eyecandy implements Entity, Reciever {
-    TextureRegion[] good;
-    TextureRegion[] destroy;
-    TextureRegion[] dead;
-    float current, speed, destroyCooldown;
-    int state, particleid;
-    int toughness; //0 dies of everything, 1 required Screaming, 2 requires harder stuff, 3 is indestructable
+    protected TextureRegion[] good;
+    protected TextureRegion[] destroy;
+    protected TextureRegion[] dead;
+    protected float current, speed, destroyCooldown;
+    protected int state;
 
-    GameScreen main;
+    protected GameScreen main;
 
-    float x, y;
+    protected float x, y;
 
-    public Eyecandy(TextureRegion[] first, TextureRegion[] second, TextureRegion[] third, float speed, int tough){
-        good = first;
-        destroy = second;
-        dead = third;
-        current = 0;
-        state = 0;
-        this.speed = speed;
-
-        toughness = tough;
-        particleid = -1;
-    }
-    public Eyecandy(TextureRegion[] first, TextureRegion[] second, TextureRegion[] third, float speed, int tough, GameScreen main, int particletype){
-        good = first;
-        destroy = second;
-        dead = third;
-        current = 0;
-        state = 0;
-        this.speed = speed;
-
-        toughness = tough;
-        this.particleid = particletype;
+    public Eyecandy(float x, float y, GameScreen main){
         this.main = main;
+        this.x = x;
+        this.y = y;
     }
 
 
@@ -52,9 +34,14 @@ public class Eyecandy implements Entity, Reciever {
     public float getY() {
         return y;
     }
+    @Override
+    public float getSortY(){
+        return y-100;
+    }
 
     @Override
     public void render(SpriteBatch batch) {
+        batch.setColor(Color.LIGHT_GRAY);
         switch (state){
             case 0:
                 batch.draw(good[(int) current] , x, y);
@@ -66,6 +53,7 @@ public class Eyecandy implements Entity, Reciever {
                 batch.draw(dead[(int) current] , x, y);
                 break;
         }
+        batch.setColor(Color.WHITE);
     }
 
     @Override
@@ -91,12 +79,9 @@ public class Eyecandy implements Entity, Reciever {
         destroyCooldown = 3f;
         if(state > 0) return;
         state = 1;
-
-        main.particles.spawn(particleid, 0, 180, x, y, 20, 0, 10, 1);
+        current = 0;
     }
 
     @Override
-    public void engage(int intensity, int amount) {
-        if(intensity >= toughness) destroy();
-    }
+    public void engage(int intensity, int amount) {}
 }

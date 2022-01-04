@@ -49,6 +49,7 @@ public class StaticUtil {
 
         for(int i = 0; i < frames; i++){
             out[i] = atlas.findRegion(name, i);
+            if(out[i] == null) System.out.println("Unable to find: "+name+" with index "+i);
         }
         return out;
     }
@@ -58,7 +59,20 @@ public class StaticUtil {
 
         for(int i = 0; i < frames; i++){
             out[i] = atlas.findRegion(name+"/"+i);
+            if(out[i] == null) System.out.println("Unable to find: "+name+"/"+i);
         }
         return out;
+    }
+    public static TextureRegion[] getAnimation(String name, int frames, int start, TextureAtlas atlas){
+        TextureRegion[] out = new TextureRegion[frames];
+
+        for(int i = start; i < frames+start; i++){
+            out[i-start] = atlas.findRegion(name+"/"+i);
+            if(out[i-start] == null) System.out.println("Unable to find: "+name+"/"+i);
+        }
+        return out;
+    }
+    public static TextureRegion[] getImage(String name, TextureAtlas atlas){
+        return new TextureRegion[]{atlas.findRegion(name)};
     }
 }

@@ -167,5 +167,9 @@ public class AIFWorker extends SteerableAdapter<Vector2> implements Entity {
     public float getY() {
         return body.getPosition().y;
     }
+    @Override
+    public float getSortY(){
+        return getY();
+    }
 
 }

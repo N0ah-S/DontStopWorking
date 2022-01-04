@@ -12,6 +12,7 @@ import com.badlogic.gdx.ai.utils.Ray;
 import com.badlogic.gdx.ai.utils.RaycastCollisionDetector;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -23,11 +24,15 @@ import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.Reciever;
 import de.deverror.dsw.game.objects.moving.ai.Box2dRaycastCollisionDetector;
+import de.deverror.dsw.util.Animation;
+import de.deverror.dsw.util.Animator;
 import de.deverror.dsw.util.StaticUtil;
 
 import java.util.ArrayList;
 
 import static de.deverror.dsw.util.GameSettings.*;
+import static de.deverror.dsw.util.StaticUtil.getAnimation;
+import static de.deverror.dsw.util.StaticUtil.getIndexAnimation;
 
 public class Worker extends SteerableAdapter<Vector2> implements Entity, Reciever {
 
@@ -45,6 +50,8 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     ArrayList<Vector2> targets;
     State state = State.Working;
 
+    Animator animator;
+
     public Worker(float x, float y, GameScreen game) {
         this.hx = x;
         this.hy = y;
@@ -58,14 +65,17 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         notOk = game.textureAtlas.findRegion("notOk");
         ok = game.textureAtlas.findRegion("ok");
 
-        color = StaticUtil.randomColor().mul(0.9f); //darkening against glow
+        color = new Color(1,1,1,1).sub(StaticUtil.randomColor().mul(0.2f)); //darkening against glow
         color.a = 1;
         createBody();
 
         targets = new ArrayList<>();
 
-        speed = 64;
+        speed = 100;
         tolerance = 10;
+
+        animator = new Animator();
+        loadAnimations();
 
     }
 
@@ -94,7 +104,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     @Override
     public void render(SpriteBatch batch) {
         batch.setColor(color);
-        batch.draw(tex, (int) body.getPosition().x, (int) body.getPosition().y);
+        batch.draw(animator.getTexture(), (int) body.getPosition().x, (int) body.getPosition().y);
         batch.setColor(Color.LIGHT_GRAY);
 
         //Pop Elements
@@ -108,6 +118,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
 
     @Override
     public void update(float delta) {
+        animator.tick(delta);
         x = body.getPosition().x;
         y = body.getPosition().y;
         if(!targets.isEmpty()) {
@@ -155,6 +166,27 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
                         break;
                 }
             }
+        }
+
+        Vector2 direction = body.getLinearVelocity();
+        if(direction.len() > 0){
+            if(Math.abs(direction.x) > Math.abs(direction.y)){
+                if(direction.x > 0){
+                    animator.start(7);
+                }else{
+                    animator.start(6);
+                }
+            }else{
+                if(direction.y > 0){
+                    animator.start(4);
+                }else{
+                    animator.start(5);
+                }
+            }
+        }else if(state == State.Working){
+            animator.start(2);
+        }else{
+            animator.start(8);
         }
 
         if(state != State.Working) return;
@@ -206,6 +238,10 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     public float getY() {
         return body.getPosition().y;
     }
+    @Override
+    public float getSortY(){
+        return getY();
+    }
 
     public void backToWork() {
         if(state == State.GoingBack) return;
@@ -220,9 +256,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     }
 
     public void makeCoffeeBreak() {
-        System.out.println("Coffee Break");
         if(game.worldManager.coffee.orderCoffee(this) != 0) {
-            System.out.println("> Coffee Break");
             state = State.Walking;
             target(x, y - 40);
             target(x + 134, y - 40);
@@ -240,5 +274,16 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         targets.add(new Vector2(x, y));
     }
 
-
+    public void loadAnimations(){
+        TextureAtlas atlas = game.textureAtlas;
+        animator.addAnimation(0, new Animation(animator, getAnimation("worker/sleep_back", 20, atlas), 1f, 0));
+        animator.addAnimation(1, new Animation(animator, getAnimation("worker/sleep_front", 12, atlas), 1f, 1));
+        animator.addAnimation(2, new Animation(animator, getAnimation("worker/tap_back", 12, atlas), 1f, 2));
+        animator.addAnimation(3, new Animation(animator, getAnimation("worker/tap_front", 8, atlas), 1f, 3));
+        animator.addAnimation(4, new Animation(animator, getAnimation("worker/walk_back", 3, atlas), 0.7f, 0));
+        animator.addAnimation(5, new Animation(animator, getAnimation("worker/walk_front", 3, atlas), 0.7f, 1));
+        animator.addAnimation(6, new Animation(animator, getAnimation("worker/walk_left", 3, atlas), 0.7f, 2));
+        animator.addAnimation(7, new Animation(animator, getAnimation("worker/walk_right", 3, atlas), 0.7f, 3));
+        animator.addAnimation(8, new Animation(animator, getAnimation("worker/sleep_front", 1, atlas), 5f, 8));
+    }
 }

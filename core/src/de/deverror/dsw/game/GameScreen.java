@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -25,6 +26,11 @@ import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
+import de.deverror.dsw.game.objects.stationary.Decoration;
+import de.deverror.dsw.game.objects.stationary.Eyecandy;
+import de.deverror.dsw.game.objects.stationary.eyecandy.Coffee;
+import de.deverror.dsw.game.objects.stationary.eyecandy.PaperHeap;
+import de.deverror.dsw.game.objects.stationary.eyecandy.Trashcan;
 import de.deverror.dsw.game.particles.ParticleRenderer;
 import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
@@ -105,11 +111,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        System.out.println(1f/delta);
-
+        //System.out.println(1f/delta);
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
         worldManager.updateInterest();
+        particles.update(delta);
 
         updateCamera();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
@@ -121,6 +127,7 @@ public class GameScreen implements Screen {
         vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
+        particles.render(batch);
         batch.end();
 
         vfx.endInputCapture();
@@ -193,20 +200,35 @@ public class GameScreen implements Screen {
 
     public void generateEntities(){
         for (MapObject mapObject : tiledMap.getLayers().get(3).getObjects()) {
+            float x = ((RectangleMapObject) mapObject).getRectangle().getX();
+            float y = ((RectangleMapObject) mapObject).getRectangle().getY();
             switch (mapObject.getName()){
-                case "coffee":
-                    worldManager.coffee = new CoffeeMachine(((RectangleMapObject) mapObject).getRectangle().getX(), ((RectangleMapObject) mapObject).getRectangle().getY(), this);
+                case "coffeemachine":
+                    worldManager.coffee = new CoffeeMachine(x, y, this);
                     break;
-                case "mug":
+                case "kaffee":
+                    entities.add(new Coffee(x, y, this));
                     break;
-                case "bin":
+                case "trashcan":
+                    entities.add(new Trashcan(x, y, this));
                     break;
+                case"paperheap":
+                    entities.add(new PaperHeap(x, y, this));
+                    break;
+                default:
+                    TextureRegion region = textureAtlas.findRegion(mapObject.getName());
+                    if(region != null){
+                        entities.add(new Decoration(x, y, region));
+                    }
             }
         }
     }
 
     private void loadParticles(){
         particles = new ParticleRenderer();
-        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.2f));
+        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.05f));
+        particles.addParticleType(1, new ParticleType(textureAtlas.findRegion("smoke"), 0.3f));
+        particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f));
+        particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f));
     }
 }

@@ -43,6 +43,10 @@ public class TileRow implements Entity {
     public float getY() {
         return y * 64;
     }
+    @Override
+    public float getSortY(){
+        return getY();
+    }
 
     @Override
     public float getX() {
