@@ -28,7 +28,7 @@ public class Player implements Entity {
         this.body = main.physicsWorld.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1, 1);
+        shape.setRadius(20);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;

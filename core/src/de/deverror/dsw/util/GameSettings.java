@@ -11,4 +11,5 @@ public class GameSettings {
 
     public static final float PLAYERSPEED = 160f;
     public static final float MAXINTEREST = 15;
+    public static final float MININTEREST = 0.1f;
 }

@@ -17,6 +17,14 @@ public class World {
     public void registerWorker(Worker worker){
         workers.add(worker);
         interestMax = MAXINTEREST*workers.size();
-        interest += worker
+
+        interest += worker.interest;
+    }
+
+    public void updateInterest(){
+        interest = 0;
+        for(Worker worker : workers) interest += worker.interest;
+
+        if(interest/interestMax < MININTEREST) System.out.println("You are dead!");
     }
 }
