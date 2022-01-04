@@ -4,11 +4,16 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.deverror.dsw.game.GameScreen;
+import de.deverror.dsw.ui.MainMenuScreen;
 import de.deverror.dsw.util.Assets;
 
 public class Main extends Game {
-	AssetManager assets;
+	public AssetManager assets;
+
+	public GameScreen game;
+	public MainMenuScreen mainMenu;
 	
 	@Override
 	public void create () {
@@ -16,7 +21,11 @@ public class Main extends Game {
 		assets = new AssetManager();
 
 		loadAssets();
-		setScreen(new GameScreen(assets));
+
+		mainMenu = new MainMenuScreen(this);
+		game = new GameScreen(assets);
+
+		setScreen(mainMenu);
 	}
 
 	@Override
@@ -34,10 +43,18 @@ public class Main extends Game {
 		assets.load(Assets.CHEF, Texture.class);
 		assets.load(Assets.OK, Texture.class);
 		assets.load(Assets.NOT_OK, Texture.class);
-
 		assets.load(Assets.warning, Texture.class);
+
+		assets.load(Assets.MENUSKIN, Skin.class);
+		assets.load(Assets.MENUATLAS, TextureAtlas.class);
+		assets.load(Assets.MENUBACKGROUND, Texture.class);
+		assets.load(Assets.MENUATLAS_TEXTURE, Texture.class);
+
 		assets.load(Assets.ATLAS, TextureAtlas.class);
 		assets.load(Assets.ATLAS_TEXTURE, Texture.class);
+
+		assets.load(Assets.CHEFATLAS, TextureAtlas.class);
+		assets.load(Assets.CHEFATLAS_TEXTURE, Texture.class);
 
 		assets.finishLoading(); //ToDo: Put in loading screen-thread
 	}

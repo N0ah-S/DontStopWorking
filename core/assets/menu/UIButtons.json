@@ -1,0 +1,32 @@
+{
+  "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": {
+
+    "settings": {
+
+      "up": "Settings",
+
+      "down": "SettingsPressed",
+
+      "unpressedOffsetY":-10
+
+    },
+	"play": {
+
+      "up": "Play",
+
+      "down": "PlayPressed",
+
+      "unpressedOffsetY":-10
+
+    },
+	"exit": {
+
+      "up": "Exit",
+
+      "down": "ExitPressed",
+
+      "unpressedOffsetY":-10
+
+    }
+  }
+}

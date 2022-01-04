@@ -121,7 +121,6 @@ public class AIFWorker extends SteerableAdapter<Vector2> implements Entity {
     @Override
     public void update(float delta) {
         prioritySteeringSB.calculateSteering(steeringOutput);
-        System.out.println(steeringOutput.linear.x + "/" + steeringOutput.linear.y);
         body.setLinearVelocity(steeringOutput.linear);
 
         //Pop Elements
