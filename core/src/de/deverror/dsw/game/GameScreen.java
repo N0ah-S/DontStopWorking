@@ -64,6 +64,7 @@ public class GameScreen implements Screen {
     SortRenderer renderer;
     BitmapFont font;
     int points = 0;
+    float shakeTime = 0;
 
     private VfxManager vfx;
     private BloomEffect bloom;
@@ -117,6 +118,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        bloom.setBloomIntensity((float) Math.random() * 5);
+
+        shakeTime -= delta * 5;
+
         //System.out.println(1f/delta);
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
@@ -185,10 +190,16 @@ public class GameScreen implements Screen {
 
     private void updateCamera(){
         cam.viewportWidth = width();
-        cam.zoom = (64f*TILESINVIEW)/width();
         cam.viewportHeight = height();
-        cam.position.x = player.getX();
-        cam.position.y = player.getY();
+        if(shakeTime > 0) {
+            cam.zoom = (64f*TILESINVIEW)/width() - (float) Math.random() * 0.05f;
+            cam.position.x = (int) (player.getX() + Math.sin(Math.max(shakeTime, 0) * 15) * 4 + Math.random() * 3);
+            cam.position.y = (int) (player.getY() + Math.cos(Math.max(shakeTime + Math.random() * 5, 0) * 10) * 4);
+        } else {
+            cam.zoom = (64f*TILESINVIEW)/width();
+            cam.position.x = (int) player.getX();
+            cam.position.y = (int) player.getY();
+        }
         cam.update();
         batch.setProjectionMatrix(cam.combined);
     }
@@ -242,5 +253,9 @@ public class GameScreen implements Screen {
         particles.addParticleType(1, new ParticleType(textureAtlas.findRegion("smoke"), 0.3f));
         particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f));
         particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f));
+    }
+
+    public void shake() {
+        shakeTime = 1;
     }
 }
