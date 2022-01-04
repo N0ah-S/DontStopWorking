@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.crashinvaders.vfx.VfxManager;
 import com.crashinvaders.vfx.effects.BloomEffect;
+import com.crashinvaders.vfx.effects.FxaaEffect;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
@@ -56,6 +57,7 @@ public class GameScreen implements Screen {
     SortRenderer renderer;
     private VfxManager vfx;
     private BloomEffect bloom;
+    private FxaaEffect fxaa;
 
     public GameScreen(AssetManager assets){
         entities = new ArrayList<>();
@@ -73,6 +75,7 @@ public class GameScreen implements Screen {
         tiledMap = new TmxMapLoader().load("map.tmx");
 
 
+
         renderer = new SortRenderer(this);
 
         player = new Player(this);
@@ -88,19 +91,21 @@ public class GameScreen implements Screen {
         loadParticles();
         generateEntities();
 
-
     }
     @Override
     public void show() {
         vfx = new VfxManager(Pixmap.Format.RGBA8888);
 
         bloom = new BloomEffect();
-        bloom.setBloomIntensity(3);
+        bloom.setBloomIntensity(2);
         vfx.addEffect(bloom);
+        //fxaa = new FxaaEffect(0.0078125F, 0.125F, 99.0F, true);
+        //vfx.addEffect(fxaa);
     }
 
     @Override
     public void render(float delta) {
+        System.out.println(1f/delta);
 
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
@@ -120,8 +125,6 @@ public class GameScreen implements Screen {
 
         vfx.endInputCapture();
 
-        // Apply the effects chain to the captured frame.
-        // In our case, only one effect (gaussian blur) will be applied.
         vfx.applyEffects();
 
         // Render result to the screen.
@@ -163,10 +166,10 @@ public class GameScreen implements Screen {
 
     private void updateCamera(){
         cam.viewportWidth = width();
-        cam.zoom = (64f*TILESINVIEW)/width() * 0.8f;
+        cam.zoom = (64f*TILESINVIEW)/width();
         cam.viewportHeight = height();
-        cam.position.x = (int) player.getX();
-        cam.position.y = (int) player.getY();
+        cam.position.x = player.getX();
+        cam.position.y = player.getY();
         cam.update();
         batch.setProjectionMatrix(cam.combined);
     }

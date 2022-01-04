@@ -39,10 +39,8 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
 
     public float interest;
     float hx, hy, x, y;
-    private RayConfigurationBase<Vector2>[] rayConfigurations;
     Body body;
 
-    RaycastCollisionDetector<Vector2> raycastCollisionDetector;
     float tolerance, speed; //target specifications
     ArrayList<Vector2> targets;
     State state = State.Working;
@@ -63,23 +61,11 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         color = StaticUtil.randomColor().mul(0.9f); //darkening against glow
         color.a = 1;
         createBody();
-        //initActor();
 
         targets = new ArrayList<>();
 
         speed = 64;
         tolerance = 10;
-
-    }
-
-    public void initActor() {
-
-        rayConfigurations = (RayConfigurationBase<Vector2>[]) new RayConfigurationBase[]{
-                new SingleRayConfiguration<Vector2>(this, 1000),
-                new ParallelSideRayConfiguration<Vector2>(this, 1000, this.getBoundingRadius()),
-                new CentralRayWithWhiskersConfiguration<Vector2>(this, 1000,
-                        40, 35 * MathUtils.degreesToRadians)};
-        raycastCollisionDetector = new Box2dRaycastCollisionDetector(game.physicsWorld);
 
     }
 
@@ -92,10 +78,6 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(16, 8, new Vector2(16, 3), 0);
-
-        /*CircleShape shape = new CircleShape();
-        shape.setPosition(new Vector2(32, 10));
-        shape.setRadius(20f);*/
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -131,17 +113,6 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         if(!targets.isEmpty()) {
             float tx = targets.get(0).x;
             float ty = targets.get(0).y;
-
-            /*Collision<Vector2> collision = null;
-            boolean hit = raycastCollisionDetector.findCollision(collision,
-                    new Ray<Vector2>(body.getPosition(), targets.get(0)));
-            if(collision != null && body.getPosition().dst(collision.point) < body.getPosition().dst(targets.get(0))) {
-                Collision ahead
-                System.out.println("Wooohoooooo");
-                body.setTransform(2000, 300, 45);
-                targets.clear();
-                target(collision.point.x - 60, collision.point.y);
-            }*/
 
             boolean left = (tx + tolerance < x);
             boolean right = (tx - tolerance > x);
