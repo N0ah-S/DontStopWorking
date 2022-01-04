@@ -37,7 +37,7 @@ public class TileRow implements Entity {
 
     @Override
     public float getY() {
-        return 0;
+        return y * 64;
     }
 
     @Override

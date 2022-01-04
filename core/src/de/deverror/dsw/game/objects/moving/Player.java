@@ -2,11 +2,9 @@ package de.deverror.dsw.game.objects.moving;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.*;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.stationary.Worker;
@@ -24,18 +22,24 @@ public class Player implements Entity {
         BodyDef bodyDef = new BodyDef();
         bodyDef.linearDamping = 0f;
         bodyDef.fixedRotation = true;
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
-        this.body = main.physicsWorld.createBody(bodyDef);
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        body = main.physicsWorld.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setRadius(20);
+        shape.setAsBox(40, 8, new Vector2(32, 3), 0);
+
+        /*CircleShape shape = new CircleShape();
+        shape.setPosition(new Vector2(32, 10));
+        shape.setRadius(20f);*/
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1f;
 
         body.createFixture(fixtureDef);
+        body.setTransform(64 * 3, 64 * 1.5f, 0);
         shape.dispose();
+
         texture = main.assets.get(Assets.chef);
     }
     @Override
