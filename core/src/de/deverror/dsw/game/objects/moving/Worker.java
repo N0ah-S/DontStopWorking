@@ -114,11 +114,11 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         batch.setColor(Color.WHITE);
 
         //Pop Elements
-        float pY = body.getPosition().y + 100;
+        float pY = body.getPosition().y + 80;
         float percentage = Math.min(interest, MAXINTEREST) / MAXINTEREST;
 
-        batch.draw(ok, (int) body.getPosition().x, (int) pY, 50 * percentage, 15);
-        batch.draw(notOk, body.getPosition().x + 50 * percentage, pY, 50 * (1 - percentage), 15);
+        batch.draw(ok, (int) body.getPosition().x - 10,                 pY, 50 * percentage, 15);
+        batch.draw(notOk, body.getPosition().x + 50 * percentage - 10,  pY, 50 * (1 - percentage), 15);
     }
 
     @Override
@@ -129,29 +129,37 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
             float tx = targets.get(0).x;
             float ty = targets.get(0).y;
 
-            Collision<Vector2> collision = null;
+            /*Collision<Vector2> collision = null;
             boolean hit = raycastCollisionDetector.findCollision(collision,
                     new Ray<Vector2>(body.getPosition(), targets.get(0)));
             if(collision != null && body.getPosition().dst(collision.point) < body.getPosition().dst(targets.get(0))) {
-                /*Collision ahead
+                Collision ahead
                 System.out.println("Wooohoooooo");
                 body.setTransform(2000, 300, 45);
                 targets.clear();
-                target(collision.point.x - 60, collision.point.y);*/
-            }
+                target(collision.point.x - 60, collision.point.y);
+            }*/
 
             boolean left = (tx + tolerance < x);
             boolean right = (tx - tolerance > x);
             boolean up = (ty + tolerance < y);
             boolean down = (ty - tolerance > y);
 
-            if(state == State.Walking && getPosition().dst(game.worldManager.coffee.getX(),
-                    game.worldManager.coffee.getY()) < 190) {
-                for (Worker w : game.worldManager.workers) {
-                    float dst = getPosition().dst(w.getPosition());
-                    body.setLinearVelocity(0, 0);
-                    if(dst > 1 && dst < 40) return; //größer 1 notwendig, weil zu faul *this* rauszufiltern
+            if(state == State.Walking || state == (State.Talking)) {
+                float dst1 = getPosition().dst(game.worldManager.coffee.getX(),
+                        game.worldManager.coffee.getY());
+                if(dst1 < 190) {
+                    for (Worker w : game.worldManager.workers) {
+                        float dst2 = getPosition().dst(w.getPosition());
+
+                        if(dst2 > 2 && dst2 < 65) {
+                            state = State.Talking;
+                            body.setLinearVelocity(0, 0);
+                            return;
+                        }
+                    }
                 }
+
             }
 
             if (left && !right) body.setLinearVelocity(-speed, 0);
@@ -177,17 +185,17 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
 
         if(state != State.Working) return;
         //Pop Elements
-        interest -= delta * 2;
+        interest -= delta;
         if (interest < 0) {
             interest = 0;
-            if(Math.random() > 0.9f) makeCoffeeBreak();
+            if(Math.random() > 0.97f) makeCoffeeBreak();
         }
     }
 
     public void engage(int intensity, int amount) {
         interest += amount;
         if (interest > MAXINTEREST) interest = MAXINTEREST;
-        backToWork();
+        if(state == State.Talking) backToWork();
     }
 
     @Override
