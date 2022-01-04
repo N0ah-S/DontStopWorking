@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
+import de.deverror.dsw.game.objects.Reciever;
 import de.deverror.dsw.game.objects.moving.ai.Box2dRaycastCollisionDetector;
 import de.deverror.dsw.util.StaticUtil;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 import static de.deverror.dsw.util.GameSettings.*;
 
-public class Worker extends SteerableAdapter<Vector2> implements Entity {
+public class Worker extends SteerableAdapter<Vector2> implements Entity, Reciever {
 
     GameScreen game;
 
@@ -173,6 +174,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity {
                     case Walking:
                         state = State.Coffee;
                         game.worldManager.coffee.makeCoffee(this);
+                        System.out.println("Make Coffee ");
                         break;
                     case GoingBack:
                         state = State.Working;
@@ -190,7 +192,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity {
         }
     }
 
-    public void motivate(float amount) {
+    public void engage(int intensity, int amount) {
         interest += amount;
         if (interest > MAXINTEREST) interest = MAXINTEREST;
         if(state == State.Talking) backToWork();
@@ -234,7 +236,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity {
     public void backToWork() {
         if(state == State.GoingBack) return;
         state = State.GoingBack;
-        motivate(12);
+        motivate(2);
 
         target(x + 50, y - 60);
         target(hx + 134,  y - 60);

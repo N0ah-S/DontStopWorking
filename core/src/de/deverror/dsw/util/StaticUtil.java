@@ -1,7 +1,6 @@
 package de.deverror.dsw.util;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,11 +42,20 @@ public class StaticUtil {
         return new Color(random.nextFloat(), random.nextFloat(), random.nextFloat(), 1f);
     }
 
-    public static TextureRegion[] getAnimation(String name, int frames, TextureAtlas atlas){
+    public static TextureRegion[] getIndexAnimation(String name, int frames, TextureAtlas atlas){
         TextureRegion[] out = new TextureRegion[frames];
 
         for(int i = 0; i < frames; i++){
             out[i] = atlas.findRegion(name, i);
+        }
+        return out;
+    }
+
+    public static TextureRegion[] getAnimation(String name, int frames, TextureAtlas atlas){
+        TextureRegion[] out = new TextureRegion[frames];
+
+        for(int i = 0; i < frames; i++){
+            out[i] = atlas.findRegion(name+"/"+i);
         }
         return out;
     }

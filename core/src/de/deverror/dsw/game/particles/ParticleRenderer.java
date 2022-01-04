@@ -30,7 +30,7 @@ public class ParticleRenderer {
             float centerX = type.texture.getRegionWidth()/2f;
             float centerY = type.texture.getRegionHeight()/2f;
             for(float[] particle : type.getParticles())
-            batch.draw(type.texture, particle[0], particle[1], centerX, centerY, centerX*2, centerY*2, 1, 1, particle[4]);
+            batch.draw(type.texture, particle[0], particle[1], centerX, centerY, centerX*2, centerY*2, type.scale, type.scale, particle[4]);
         }
     }
 

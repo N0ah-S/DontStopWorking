@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,9 @@ import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
+import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
+import de.deverror.dsw.game.particles.ParticleRenderer;
+import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
 import de.deverror.dsw.util.ShapeUtils;
 import de.deverror.dsw.util.StaticUtil;
@@ -44,6 +48,8 @@ public class GameScreen implements Screen {
     TiledMap tiledMap;
     public AssetManager assets;
     public TextureAtlas textureAtlas;
+
+    public ParticleRenderer particles;
 
     SortRenderer renderer;
     private VfxManager vfx;
@@ -77,6 +83,8 @@ public class GameScreen implements Screen {
         worldManager.registerWorker(new Worker(280, 256, this));
 
         generateColliders();
+        loadParticles();
+        generateEntities();
     }
     @Override
     public void show() {
@@ -153,5 +161,24 @@ public class GameScreen implements Screen {
             body.createFixture(fixtureDef);
             shape.dispose();
         }
+    }
+
+    public void generateEntities(){
+        for (MapObject mapObject : tiledMap.getLayers().get(3).getObjects()) {
+            switch (mapObject.getName()){
+                case "coffee":
+                    worldManager.coffee = new CoffeeMachine(((RectangleMapObject) mapObject).getRectangle().getX(), ((RectangleMapObject) mapObject).getRectangle().getY(), this);
+                    break;
+                case "mug":
+                    break;
+                case "bin":
+                    break;
+            }
+        }
+    }
+
+    private void loadParticles(){
+        particles = new ParticleRenderer();
+        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.2f));
     }
 }
