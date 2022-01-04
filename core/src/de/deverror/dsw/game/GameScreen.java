@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -61,6 +62,9 @@ public class GameScreen implements Screen {
     public ParticleRenderer particles;
 
     SortRenderer renderer;
+    BitmapFont font;
+    int points = 0;
+
     private VfxManager vfx;
     private BloomEffect bloom;
     private FxaaEffect fxaa;
@@ -97,6 +101,8 @@ public class GameScreen implements Screen {
         loadParticles();
         generateEntities();
 
+        font = new BitmapFont(Gdx.files.internal("skin/Unnamed.fnt"));
+        font.setColor(0.25f, 1f, 0.12f, 1);
     }
     @Override
     public void show() {
@@ -141,6 +147,8 @@ public class GameScreen implements Screen {
 
         HUDBatch.begin();
         worldManager.render(HUDBatch);
+        String text = Integer.toString(points);
+        font.draw(HUDBatch, text, vfx.getWidth() - 30 - text.length() * 75, vfx.getHeight() - 20);
         HUDBatch.end();
     }
 
@@ -167,8 +175,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        HUDBatch.dispose();
         physicsWorld.dispose();
         debugRenderer.dispose();
+        vfx.dispose();
+        bloom.dispose();
     }
 
     private void updateCamera(){
