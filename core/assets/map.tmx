@@ -59,7 +59,7 @@
   <object id="22" name="tisch" x="798.458" y="165.438" width="134" height="27.25"/>
   <object id="23" name="tisch" x="1054.21" y="167.313" width="134" height="27.25"/>
  </objectgroup>
- <objectgroup id="4" name="eyecandy">
+ <objectgroup id="4" name="entities">
   <object id="24" name="mug" x="732" y="176">
    <point/>
   </object>

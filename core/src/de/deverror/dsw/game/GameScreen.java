@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -18,6 +19,7 @@ import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
+import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
 import de.deverror.dsw.game.particles.ParticleRenderer;
 import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
@@ -77,7 +79,7 @@ public class GameScreen implements Screen {
 
         generateColliders();
         loadParticles();
-        generateEyecandy();
+        generateEntities();
     }
     @Override
     public void show() {
@@ -157,9 +159,16 @@ public class GameScreen implements Screen {
         }
     }
 
-    public void generateEyecandy(){
+    public void generateEntities(){
         for (MapObject mapObject : tiledMap.getLayers().get(3).getObjects()) {
             switch (mapObject.getName()){
+                case "coffee":
+                    worldManager.coffee = new CoffeeMachine(((RectangleMapObject) mapObject).getRectangle().getX(), ((RectangleMapObject) mapObject).getRectangle().getY(), this);
+                    break;
+                case "mug":
+                    break;
+                case "bin":
+                    break;
             }
         }
     }
