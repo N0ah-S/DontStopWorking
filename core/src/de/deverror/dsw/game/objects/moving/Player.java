@@ -40,6 +40,7 @@ public class Player implements Entity {
 
         texture = main.assets.get(Assets.CHEF);
     }
+
     @Override
     public float getX() {
         return body.getPosition().x;
