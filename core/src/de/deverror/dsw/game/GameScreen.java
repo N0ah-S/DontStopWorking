@@ -7,6 +7,7 @@ import com.badlogic.gdx.ai.GdxAI;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.crashinvaders.vfx.VfxManager;
+import com.crashinvaders.vfx.effects.BloomEffect;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
@@ -53,7 +55,7 @@ public class GameScreen implements Screen {
 
     SortRenderer renderer;
     private VfxManager vfx;
-    private GaussianBlurEffect vfxEffect;
+    private BloomEffect bloom;
 
     public GameScreen(AssetManager assets){
         entities = new ArrayList<>();
@@ -85,10 +87,16 @@ public class GameScreen implements Screen {
         generateColliders();
         loadParticles();
         generateEntities();
+
+
     }
     @Override
     public void show() {
+        vfx = new VfxManager(Pixmap.Format.RGBA8888);
 
+        bloom = new BloomEffect();
+        bloom.setBloomIntensity(3);
+        vfx.addEffect(bloom);
     }
 
     @Override
@@ -99,10 +107,26 @@ public class GameScreen implements Screen {
         worldManager.updateInterest();
 
         updateCamera();
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
+                (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
+        // Clean up internal buffers, as we don't need any information from the last render.
+        vfx.cleanUpBuffers();
+
+        // Begin render to an off-screen buffer.
+        vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
         batch.end();
+
+        vfx.endInputCapture();
+
+        // Apply the effects chain to the captured frame.
+        // In our case, only one effect (gaussian blur) will be applied.
+        vfx.applyEffects();
+
+        // Render result to the screen.
+        vfx.renderToScreen();
+
         if(StaticUtil.key(Input.Keys.G)) debugRenderer.render(physicsWorld, cam.combined);
 
         HUDBatch.begin();
@@ -112,6 +136,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int w, int h) {
+        vfx.resize(w, h);
         updateCamera();
     }
 
@@ -138,7 +163,7 @@ public class GameScreen implements Screen {
 
     private void updateCamera(){
         cam.viewportWidth = width();
-        cam.zoom = (64f*TILESINVIEW)/width();
+        cam.zoom = (64f*TILESINVIEW)/width() * 0.8f;
         cam.viewportHeight = height();
         cam.position.x = (int) player.getX();
         cam.position.y = (int) player.getY();

@@ -60,9 +60,10 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         notOk = game.textureAtlas.findRegion("notOk");
         ok = game.textureAtlas.findRegion("ok");
 
-        color = StaticUtil.randomColor();
+        color = StaticUtil.randomColor().mul(0.9f); //darkening against glow
+        color.a = 1;
         createBody();
-        initActor();
+        //initActor();
 
         targets = new ArrayList<>();
 
@@ -105,13 +106,14 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         shape.dispose();
 
         if(y == 500) interest = 0;
+
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.setColor(color);
         batch.draw(tex, (int) body.getPosition().x, (int) body.getPosition().y);
-        batch.setColor(Color.WHITE);
+        batch.setColor(Color.LIGHT_GRAY);
 
         //Pop Elements
         float pY = body.getPosition().y + 80;
@@ -119,6 +121,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
 
         batch.draw(ok, (int) body.getPosition().x - 10,                 pY, 50 * percentage, 15);
         batch.draw(notOk, body.getPosition().x + 50 * percentage - 10,  pY, 50 * (1 - percentage), 15);
+        batch.setColor(Color.WHITE);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package de.deverror.dsw.game;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -8,6 +9,7 @@ import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.EntitySortComparator;
 import de.deverror.dsw.game.objects.stationary.TileRow;
 import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.util.StaticUtil;
 import de.deverror.dsw.util.TileUtils;
 
 import java.util.ArrayList;
@@ -36,11 +38,13 @@ public class SortRenderer {
     }
 
     public void render(SpriteBatch batch) {
+        batch.setColor(StaticUtil.KINDA_DARK);
         for (int y = bg_layer.getHeight()-1; y >= 0 ; y--) {
             for (int x = 0; x < bg_layer.getWidth(); x++) {
                 TileUtils.renderTile(batch, tileset, x, y, tileID(bg_layer, x, y));
             }
         }
+        batch.setColor(Color.WHITE);
 
         entities.sort(EntitySortComparator.INSTANCE); //ToDo think about performance
         for(int i = 0; i < entities.size(); i++) {

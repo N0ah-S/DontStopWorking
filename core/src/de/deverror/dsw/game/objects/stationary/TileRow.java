@@ -1,8 +1,10 @@
 package de.deverror.dsw.game.objects.stationary;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.deverror.dsw.game.objects.Entity;
+import de.deverror.dsw.util.StaticUtil;
 import de.deverror.dsw.util.TileUtils;
 
 public class TileRow implements Entity {
@@ -23,9 +25,11 @@ public class TileRow implements Entity {
 
     @Override
     public void render(SpriteBatch batch) {
+        batch.setColor(StaticUtil.KINDA_DARK);
         for (int x = 0; x < ids.length; x++) {
             TileUtils.renderTile(batch, tileset, x, y, ids[x]);
         }
+        batch.setColor(Color.WHITE);
     }
 
     public void set(int x, int cell) {

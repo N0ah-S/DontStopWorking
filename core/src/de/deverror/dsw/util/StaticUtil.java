@@ -10,6 +10,8 @@ import java.util.Random;
 
 public class StaticUtil {
 
+    public static final Color KINDA_DARK = new Color(0.9f, 0.9f, 0.9f, 1);
+
     public static Random random = new Random();
 
     public static boolean key(int key){
