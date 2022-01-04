@@ -200,6 +200,21 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">generic_worker.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,16,16,32</rect>
+                <key>scale9Paddings</key>
+                <rect>8,16,16,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">notOk.png</key>
             <key type="filename">ok.png</key>
             <struct type="IndividualSpriteSettings">

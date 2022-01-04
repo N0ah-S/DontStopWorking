@@ -28,7 +28,7 @@ public class SortRenderer {
         entities    = game.entities;
         map         = game.tiledMap;
 
-        tileset     = game.assets.get(Assets.tileset);
+        tileset     = game.assets.get(Assets.TILESET);
 
         bg_layer    = (TiledMapTileLayer) map.getLayers().get(0);
         fg_layer    = (TiledMapTileLayer) map.getLayers().get(1);

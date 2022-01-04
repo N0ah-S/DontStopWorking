@@ -2,12 +2,10 @@ package de.deverror.dsw.game.objects.moving;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.EllipseShapeBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
-import de.deverror.dsw.game.objects.stationary.Worker;
 import de.deverror.dsw.util.Assets;
 
 import static de.deverror.dsw.util.StaticUtil.*;
@@ -40,7 +38,7 @@ public class Player implements Entity {
         body.setTransform(64 * 3, 64 * 1.5f, 0);
         shape.dispose();
 
-        texture = main.assets.get(Assets.chef);
+        texture = main.assets.get(Assets.CHEF);
     }
     @Override
     public float getX() {

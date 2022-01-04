@@ -1,6 +1,6 @@
 package de.deverror.dsw.game.objects;
 
-import de.deverror.dsw.game.objects.stationary.Worker;
+import de.deverror.dsw.game.objects.moving.Worker;
 
 import java.util.ArrayList;
 

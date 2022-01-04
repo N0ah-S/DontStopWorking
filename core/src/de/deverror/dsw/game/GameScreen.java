@@ -1,9 +1,9 @@
 package de.deverror.dsw.game;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
@@ -14,9 +14,10 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.moving.Player;
-import de.deverror.dsw.game.objects.stationary.Worker;
+import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.util.Assets;
 import de.deverror.dsw.util.ShapeUtils;
+import de.deverror.dsw.util.StaticUtil;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 
@@ -33,7 +34,7 @@ public class GameScreen implements Screen {
 
     TiledMap tiledMap;
     public AssetManager assets;
-    TextureAtlas textureAtlas;
+    public TextureAtlas textureAtlas;
 
     SortRenderer renderer;
 
@@ -48,14 +49,17 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
 
         tiledMap = new TmxMapLoader().load("map.tmx");
-        player = new Player(this);
-        entities.add(player);
-        entities.add(new Worker(300, 300, this));
-        entities.add(new Worker(500, 500, this));
+        textureAtlas = new TextureAtlas(Assets.ATLAS);
 
-        textureAtlas = new TextureAtlas();
 
         renderer = new SortRenderer(this);
+
+        player = new Player(this);
+        entities.add(player);
+        entities.add(new Worker(280, 128, this));
+        entities.add(new Worker(500, 128, this));
+        entities.add(new Worker(400, 500, this));
+
         generateColliders();
     }
     @Override
@@ -73,7 +77,7 @@ public class GameScreen implements Screen {
         batch.begin();
         renderer.render(batch);
         batch.end();
-        debugRenderer.render(physicsWorld, cam.combined);
+        if(StaticUtil.key(Input.Keys.G)) debugRenderer.render(physicsWorld, cam.combined);
     }
 
     @Override

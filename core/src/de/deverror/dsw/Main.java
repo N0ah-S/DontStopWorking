@@ -2,10 +2,8 @@ package de.deverror.dsw;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.util.Assets;
 
@@ -32,10 +30,15 @@ public class Main extends Game {
 	}
 
 	public void loadAssets() {
-		assets.load(Assets.tileset, Texture.class);
-		assets.load(Assets.chef, Texture.class);
-		assets.load(Assets.ok, Texture.class);
-		assets.load(Assets.notOk, Texture.class);
+		assets.load(Assets.TILESET, Texture.class);
+		assets.load(Assets.CHEF, Texture.class);
+		assets.load(Assets.OK, Texture.class);
+		assets.load(Assets.NOT_OK, Texture.class);
+
+
+		assets.load(Assets.ATLAS, TextureAtlas.class);
+		assets.load(Assets.ATLAS_TEXTURE, Texture.class);
+
 		assets.finishLoading(); //ToDo: Put in loading screen-thread
 	}
 }

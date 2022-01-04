@@ -1,25 +1,32 @@
 main.png
-size: 106, 162
+size: 112, 162
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Chef
   rotate: false
-  xy: 4, 25
+  xy: 4, 4
   size: 64, 133
   orig: 64, 136
   offset: 0, 0
   index: -1
+generic_worker
+  rotate: false
+  xy: 76, 4
+  size: 32, 64
+  orig: 32, 64
+  offset: 0, 0
+  index: -1
 notOk
   rotate: false
-  xy: 4, 4
+  xy: 4, 145
   size: 45, 13
   orig: 45, 13
   offset: 0, 0
   index: -1
 ok
   rotate: false
-  xy: 57, 4
+  xy: 57, 145
   size: 45, 13
   orig: 45, 13
   offset: 0, 0
