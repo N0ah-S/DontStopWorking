@@ -34,7 +34,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>main.png</filename>
+        <filename>../core/assets/atlas/main.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrQualityLevel</key>
@@ -68,9 +68,9 @@
             <key>filtering</key>
             <struct type="LibGDXFiltering">
                 <key>x</key>
-                <enum type="LibGDXFiltering::Filtering">Linear</enum>
+                <enum type="LibGDXFiltering::Filtering">Nearest</enum>
                 <key>y</key>
-                <enum type="LibGDXFiltering::Filtering">Linear</enum>
+                <enum type="LibGDXFiltering::Filtering">Nearest</enum>
             </struct>
         </struct>
         <key>shapePadding</key>
@@ -153,7 +153,7 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
@@ -200,6 +200,33 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">coffee_machine/0.png</key>
+            <key type="filename">coffee_machine/1.png</key>
+            <key type="filename">coffee_machine/10.png</key>
+            <key type="filename">coffee_machine/11.png</key>
+            <key type="filename">coffee_machine/12.png</key>
+            <key type="filename">coffee_machine/2.png</key>
+            <key type="filename">coffee_machine/3.png</key>
+            <key type="filename">coffee_machine/4.png</key>
+            <key type="filename">coffee_machine/5.png</key>
+            <key type="filename">coffee_machine/6.png</key>
+            <key type="filename">coffee_machine/7.png</key>
+            <key type="filename">coffee_machine/8.png</key>
+            <key type="filename">coffee_machine/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,12,32,24</rect>
+                <key>scale9Paddings</key>
+                <rect>16,12,32,24</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">generic_worker.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -228,6 +255,21 @@
                 <rect>11,3,23,7</rect>
                 <key>scale9Paddings</key>
                 <rect>11,3,23,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">warning.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>8,4,15,9</rect>
+                <key>scale9Paddings</key>
+                <rect>8,4,15,9</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

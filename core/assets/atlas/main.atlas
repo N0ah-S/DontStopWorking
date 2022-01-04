@@ -1,33 +1,131 @@
 main.png
-size: 112, 162
+size: 213, 396
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
 Chef
   rotate: false
-  xy: 4, 4
+  xy: 44, 259
   size: 64, 133
   orig: 64, 136
   offset: 0, 0
   index: -1
+coffee_machine/0
+  rotate: false
+  xy: 4, 35
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/1
+  rotate: false
+  xy: 75, 35
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/2
+  rotate: false
+  xy: 75, 91
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/3
+  rotate: false
+  xy: 146, 91
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/4
+  rotate: false
+  xy: 4, 147
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/5
+  rotate: false
+  xy: 75, 147
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/6
+  rotate: false
+  xy: 146, 147
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/7
+  rotate: false
+  xy: 4, 203
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/8
+  rotate: false
+  xy: 75, 203
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/9
+  rotate: false
+  xy: 146, 203
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/10
+  rotate: false
+  xy: 146, 35
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/11
+  rotate: false
+  xy: 4, 91
+  size: 63, 48
+  orig: 64, 48
+  offset: 1, 0
+  index: -1
+coffee_machine/12
+  rotate: false
+  xy: 148, 4
+  size: 49, 23
+  orig: 64, 48
+  offset: 6, 25
+  index: -1
 generic_worker
   rotate: false
-  xy: 76, 4
+  xy: 4, 259
   size: 32, 64
   orig: 32, 64
   offset: 0, 0
   index: -1
 notOk
   rotate: false
-  xy: 4, 145
+  xy: 4, 4
   size: 45, 13
   orig: 45, 13
   offset: 0, 0
   index: -1
 ok
   rotate: false
-  xy: 57, 145
+  xy: 57, 4
   size: 45, 13
   orig: 45, 13
+  offset: 0, 0
+  index: -1
+warning
+  rotate: false
+  xy: 110, 4
+  size: 30, 17
+  orig: 30, 17
   offset: 0, 0
   index: -1

@@ -35,7 +35,7 @@ public class Player implements Entity {
         fixtureDef.density = 1f;
 
         body.createFixture(fixtureDef);
-        body.setTransform(64 * 3, 64 * 1.5f, 0);
+        body.setTransform(64 * 8, 64 * 7f, 0);
         shape.dispose();
 
         texture = main.assets.get(Assets.CHEF);
