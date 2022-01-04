@@ -12,8 +12,8 @@ import de.deverror.dsw.util.Assets;
 public class Main extends Game {
 	public AssetManager assets;
 
-	GameScreen game;
-	MainMenuScreen mainMenu;
+	public GameScreen game;
+	public MainMenuScreen mainMenu;
 	
 	@Override
 	public void create () {
@@ -43,14 +43,18 @@ public class Main extends Game {
 		assets.load(Assets.CHEF, Texture.class);
 		assets.load(Assets.OK, Texture.class);
 		assets.load(Assets.NOT_OK, Texture.class);
+		assets.load(Assets.warning, Texture.class);
 
 		assets.load(Assets.MENUSKIN, Skin.class);
 		assets.load(Assets.MENUATLAS, TextureAtlas.class);
 		assets.load(Assets.MENUBACKGROUND, Texture.class);
+		assets.load(Assets.MENUATLAS_TEXTURE, Texture.class);
 
-		assets.load(Assets.warning, Texture.class);
 		assets.load(Assets.ATLAS, TextureAtlas.class);
 		assets.load(Assets.ATLAS_TEXTURE, Texture.class);
+
+		assets.load(Assets.CHEFATLAS, TextureAtlas.class);
+		assets.load(Assets.CHEFATLAS_TEXTURE, Texture.class);
 
 		assets.finishLoading(); //ToDo: Put in loading screen-thread
 	}

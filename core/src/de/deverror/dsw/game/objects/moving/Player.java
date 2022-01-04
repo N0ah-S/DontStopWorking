@@ -2,10 +2,13 @@ package de.deverror.dsw.game.objects.moving;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
+import de.deverror.dsw.util.Animation;
+import de.deverror.dsw.util.Animator;
 import de.deverror.dsw.util.Assets;
 
 import static de.deverror.dsw.util.StaticUtil.*;
@@ -14,7 +17,9 @@ import static de.deverror.dsw.util.GameSettings.*;
 public class Player implements Entity {
     Body body;
     GameScreen main;
-    Texture texture;
+
+    Animator animator;
+    int dir;
     public Player(GameScreen main){
         this.main = main;
         BodyDef bodyDef = new BodyDef();
@@ -38,7 +43,8 @@ public class Player implements Entity {
         body.setTransform(64 * 3, 64 * 1.5f, 0);
         shape.dispose();
 
-        texture = main.assets.get(Assets.CHEF);
+        animator = new Animator();
+        loadAnimations();
     }
 
     @Override
@@ -53,7 +59,7 @@ public class Player implements Entity {
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(texture, getX(), getY());
+        batch.draw(animator.getTexture(), getX(), getY());
     }
 
     @Override
@@ -61,21 +67,31 @@ public class Player implements Entity {
         Vector2 velocity = new Vector2(0, 0);
         if(key(UP)){
             velocity.y += PLAYERSPEED;
+            dir = 0;
         }
         if(key(DOWN)){
             velocity.y -= PLAYERSPEED;
+            dir = 1;
         }
         if(key(LEFT)){
             velocity.x -= PLAYERSPEED;
+            dir = 2;
         }
         if(key(RIGHT)){
             velocity.x += PLAYERSPEED;
+            dir = 3;
         }
         if(key(SCREAM)){
             scream();
         }
+        if(velocity.x == 0 && velocity.y == 0){
+            animator.start(dir);
+        }else{
+            animator.start(4+dir);
+        }
 
         body.setLinearVelocity(velocity);
+        animator.tick(delta);
     }
 
     private void scream(){
@@ -85,5 +101,17 @@ public class Player implements Entity {
                 if(dist < 192) ((Worker) entity).motivate(15);
             }
         }
+    }
+
+    private void loadAnimations(){
+        TextureAtlas atlas = new TextureAtlas(Assets.CHEFATLAS);
+        animator.addAnimation(0, new Animation(animator, getAnimation("chef_idleback", 11, atlas), 1f, 0));
+        animator.addAnimation(1, new Animation(animator, getAnimation("chef_idlefront", 11, atlas), 1f, 1));
+        animator.addAnimation(2, new Animation(animator, getAnimation("chef_idleleft", 11, atlas), 1f, 2));
+        animator.addAnimation(3, new Animation(animator, getAnimation("chef_idleright", 11, atlas), 1f, 3));
+        animator.addAnimation(4, new Animation(animator, getAnimation("chef_walkback", 7, atlas), 0.7f, 0));
+        animator.addAnimation(5, new Animation(animator, getAnimation("chef_walkfront", 11, atlas), 0.7f, 1));
+        animator.addAnimation(6, new Animation(animator, getAnimation("chef_walkleft", 8, atlas), 0.7f, 2));
+        animator.addAnimation(7, new Animation(animator, getAnimation("chef_walkright", 8, atlas), 0.7f, 3));
     }
 }

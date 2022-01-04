@@ -68,6 +68,7 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("PLAY!");
                 particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
+                main.setScreen(main.game);
             }
         });
         settingsButton.addListener(new ClickListener() {

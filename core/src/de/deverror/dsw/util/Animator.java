@@ -1,5 +1,7 @@
 package de.deverror.dsw.util;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import java.util.HashMap;
 
 public class Animator {
@@ -19,11 +21,16 @@ public class Animator {
     }
 
     public void start(int id){
+        if(id == current) return;
         animations.get(current).reset();
         current = id;
     }
 
     public boolean isLocking(){
         return animations.get(current).locking;
+    }
+
+    public TextureRegion getTexture(){
+        return animations.get(current).getTexture();
     }
 }

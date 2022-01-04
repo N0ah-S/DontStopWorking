@@ -1,15 +1,16 @@
 package de.deverror.dsw.util;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Animation {
     Animator animator;
-    Texture[] textures;
+    TextureRegion[] textures;
     int following;
     public boolean locking;
     float length, current;
 
-    public Animation(Animator animator, Texture[] images, float length, int following){
+    public Animation(Animator animator, TextureRegion[] images, float length, int following){
         textures = images;
         this.length = length;
         this.following = following;
@@ -18,7 +19,7 @@ public class Animation {
         this.animator = animator;
     }
 
-    public Animation(Animator animator, Texture[] images, float length, int following, boolean lock){
+    public Animation(Animator animator, TextureRegion[] images, float length, int following, boolean lock){
         textures = images;
         this.length = length;
         this.following = following;
@@ -34,8 +35,8 @@ public class Animation {
         }
     }
 
-    public Texture getTexture(){
-        return textures[(int) Math.floor((textures.length+1)*(current/length))];
+    public TextureRegion getTexture(){
+        return textures[(int) Math.floor((textures.length-0.1f)*(current/length))];
     }
 
     public void reset(){

@@ -39,8 +39,6 @@ public class WorldManager {
     public void updateInterest(){
         interest = 0;
         for(Worker worker : workers) interest += worker.interest;
-
-        if(interest/interestMax < MININTEREST) System.out.println("You are dead!");
     }
 
     public void render(SpriteBatch batch){

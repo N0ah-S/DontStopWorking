@@ -135,7 +135,6 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity {
             boolean right = (tx - tolerance > x);
             boolean up = (ty + tolerance < y);
             boolean down = (ty - tolerance > y);
-            System.out.println(left + ";" + right);
 
             if (left && !right) body.setLinearVelocity(-speed, 0);
             else if (!left && right) body.setLinearVelocity(speed, 0);
