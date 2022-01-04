@@ -9,7 +9,7 @@ import de.deverror.dsw.util.Assets;
 import static de.deverror.dsw.util.GameSettings.*;
 
 public class Worker implements Entity {
-    float interest;
+    public float interest;
     float x, y;
     Texture ok;
     Texture notOk;
