@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.deverror.dsw.game.GameScreen;
+import de.deverror.dsw.ui.MainMenuScreen;
 import de.deverror.dsw.util.Assets;
 
 public class Main extends Game {
 	public AssetManager assets;
 
 	GameScreen game;
+	MainMenuScreen mainMenu;
 	
 	@Override
 	public void create () {
@@ -19,7 +21,11 @@ public class Main extends Game {
 		assets = new AssetManager();
 
 		loadAssets();
-		setScreen(new GameScreen(assets));
+
+		mainMenu = new MainMenuScreen(this);
+		game = new GameScreen(assets);
+
+		setScreen(mainMenu);
 	}
 
 	@Override

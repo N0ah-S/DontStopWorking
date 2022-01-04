@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.deverror.dsw.Main;
+import de.deverror.dsw.game.particles.ParticleRenderer;
+import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
 import static de.deverror.dsw.util.StaticUtil.*;
 
@@ -29,29 +31,32 @@ public class MainMenuScreen implements Screen {
     Table menuTable;
     Texture background;
 
+    ParticleRenderer particleRenderer;
+
     public MainMenuScreen(Main main){
         this.main = main;
         menuSkin = main.assets.get(Assets.MENUSKIN);
         menuAtlas = new TextureAtlas(Assets.MENUATLAS);
+        particleRenderer = new ParticleRenderer();
     }
 
     @Override
     public void show() {
+        loadParticles();
         background = main.assets.get(Assets.MENUBACKGROUND);
         Image backgroundImage = new Image(background);
-        backgroundImage.setSize(1280,720);
+        backgroundImage.setSize(width(),height());
         stage = new Stage(new FitViewport(width(), height(), new OrthographicCamera()));
         menuTable = new Table();
-        Skin menuSkin = new Skin((FileHandle) main.assets.get(Assets.MENUSKIN), menuAtlas);
+        Skin menuSkin = main.assets.get(Assets.MENUSKIN), menuAtlas;
 
         ImageButton playButton = new ImageButton(menuSkin, "play");
         ImageButton settingsButton = new ImageButton(menuSkin, "settings");
         ImageButton exitButton = new ImageButton(menuSkin, "exit");
 
-        menuTable.bottom().add(playButton).size( 152F, 164F).padBottom(20F);
-        menuTable.bottom().add(settingsButton).size( 152F, 164F).padBottom(20F);
-        menuTable.bottom().add(exitButton).size( 152F, 164F).padBottom(20F);
-
+        menuTable.bottom().add(playButton).size( 250, 145).pad(40);
+        menuTable.bottom().add(settingsButton).size( 250, 145).pad(40);
+        menuTable.bottom().add(exitButton).size( 250, 145).pad(40);
         stage.addActor(backgroundImage);
         stage.addActor(menuTable);
         Gdx.input.setInputProcessor(stage);
@@ -62,16 +67,19 @@ public class MainMenuScreen implements Screen {
         playButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("PLAY!");
+                particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
             }
         });
         settingsButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("SETTINGS!");
+                particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
             }
         });
         exitButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("EXIT!");
+                particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
             }
         });
     }
@@ -81,8 +89,12 @@ public class MainMenuScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0.0F, 0.0F, 0.0F, 0.0F);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        particleRenderer.update(delta);
         stage.act();
         stage.draw();
+        stage.getBatch().begin();
+        particleRenderer.render(stage.getBatch());
+        stage.getBatch().end();
     }
 
 
@@ -115,5 +127,9 @@ public class MainMenuScreen implements Screen {
         background.dispose();
         menuSkin.dispose();
 
+    }
+
+    public void loadParticles(){
+        particleRenderer.addParticleType(0, new ParticleType(menuAtlas.findRegion("Papier")));
     }
 }
