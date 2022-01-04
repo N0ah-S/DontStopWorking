@@ -2,6 +2,8 @@ package de.deverror.dsw.game;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ai.GdxAI;
+import com.badlogic.gdx.ai.Timepiece;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,7 +31,7 @@ public class GameScreen implements Screen {
     public ArrayList<Entity> entities;
     Player player;
     public World physicsWorld;
-    WorldManager worldManager;
+    public WorldManager worldManager;
 
     Box2DDebugRenderer debugRenderer;
     OrthographicCamera cam;
@@ -62,9 +64,10 @@ public class GameScreen implements Screen {
 
         player = new Player(this);
         entities.add(player);
+
         worldManager.registerWorker(new Worker(280, 128, this));
         worldManager.registerWorker(new Worker(500, 128, this));
-        worldManager.registerWorker(new Worker(400, 500, this));
+        worldManager.registerWorker(new Worker(270, 500, this));
 
         generateColliders();
     }
@@ -75,6 +78,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        GdxAI.getTimepiece().update(delta);
+
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
         worldManager.updateInterest();

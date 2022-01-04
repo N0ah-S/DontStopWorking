@@ -7,7 +7,7 @@
 	<inherits name='com.badlogic.gdx.controllers' />
 	<inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
 	<inherits name='com.badlogic.gdx.ai' />
-	<inherits name='com.kotcrab.vis.vis-ui' />
+	<!-- <inherits name='com.kotcrab.vis.vis-ui' /> -->
 
     <inherits name='de.deverror.dsw.GdxDefinition' />
     
