@@ -236,7 +236,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     public void backToWork() {
         if(state == State.GoingBack) return;
         state = State.GoingBack;
-        motivate(2);
+        engage(1, 2);
 
         target(x + 50, y - 60);
         target(hx + 134,  y - 60);
