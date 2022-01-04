@@ -3,17 +3,20 @@ package de.deverror.dsw.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.stationary.Worker;
+import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.util.ShapeUtils;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 
@@ -53,6 +56,7 @@ public class GameScreen implements Screen {
         textureAtlas = new TextureAtlas();
 
         renderer = new SortRenderer(this);
+        generateColliders();
     }
     @Override
     public void show() {
@@ -69,10 +73,11 @@ public class GameScreen implements Screen {
         batch.begin();
         renderer.render(batch);
         batch.end();
+        debugRenderer.render(physicsWorld, cam.combined);
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int w, int h) {
         updateCamera();
     }
 
@@ -104,6 +109,23 @@ public class GameScreen implements Screen {
         cam.position.y = player.getY();
         cam.update();
         batch.setProjectionMatrix(cam.combined);
+    }
+
+    public void generateColliders() {
+        for (MapObject mapObject : tiledMap.getLayers().get(2).getObjects()) {
+            Shape shape = ShapeUtils.tmxToBox2D(mapObject);
+
+            BodyDef bodyDef = new BodyDef();
+            bodyDef.fixedRotation = true;
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            Body body = physicsWorld.createBody(bodyDef);
+
+            FixtureDef fixtureDef = new FixtureDef();
+            fixtureDef.shape = shape;
+
+            body.createFixture(fixtureDef);
+            shape.dispose();
+        }
     }
 
     /*private void updatePos(Entity entity, boolean up){
