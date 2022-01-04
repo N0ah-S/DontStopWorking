@@ -68,7 +68,9 @@ public class GameScreen implements Screen {
 
         worldManager.registerWorker(new Worker(280, 128, this));
         worldManager.registerWorker(new Worker(500, 128, this));
+        worldManager.registerWorker(new Worker(500, 256, this));
         worldManager.registerWorker(new Worker(270, 500, this));
+        worldManager.registerWorker(new Worker(280, 256, this));
 
         generateColliders();
     }
