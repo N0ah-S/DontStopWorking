@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import static de.deverror.dsw.util.GameSettings.*;
 
 public class WorldManager {
-    ArrayList<Worker> workers;
+    public ArrayList<Worker> workers;
     float interest, interestMax;
     TextureRegion ok, notOk;
     Texture warning;
