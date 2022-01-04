@@ -35,7 +35,7 @@ public class Main extends Game {
 		assets.load(Assets.OK, Texture.class);
 		assets.load(Assets.NOT_OK, Texture.class);
 
-
+		assets.load(Assets.warning, Texture.class);
 		assets.load(Assets.ATLAS, TextureAtlas.class);
 		assets.load(Assets.ATLAS_TEXTURE, Texture.class);
 

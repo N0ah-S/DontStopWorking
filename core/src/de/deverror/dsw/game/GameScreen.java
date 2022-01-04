@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.deverror.dsw.game.objects.Entity;
+import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.util.Assets;
@@ -20,6 +21,7 @@ import de.deverror.dsw.util.ShapeUtils;
 import de.deverror.dsw.util.StaticUtil;
 
 import static de.deverror.dsw.util.StaticUtil.*;
+import static de.deverror.dsw.util.GameSettings.*;
 
 import java.util.ArrayList;
 
@@ -27,10 +29,12 @@ public class GameScreen implements Screen {
     public ArrayList<Entity> entities;
     Player player;
     public World physicsWorld;
+    WorldManager worldManager;
 
     Box2DDebugRenderer debugRenderer;
     OrthographicCamera cam;
     SpriteBatch batch;
+    SpriteBatch HUDBatch;
 
     TiledMap tiledMap;
     public AssetManager assets;
@@ -41,24 +45,26 @@ public class GameScreen implements Screen {
     public GameScreen(AssetManager assets){
         entities = new ArrayList<>();
         this.assets = assets;
+        textureAtlas = new TextureAtlas(Assets.ATLAS);
 
         physicsWorld = new World(new Vector2(0, 0), true);
+        worldManager = new WorldManager(this);
 
         debugRenderer = new Box2DDebugRenderer();
         cam = new OrthographicCamera();
         batch = new SpriteBatch();
+        HUDBatch = new SpriteBatch();
 
         tiledMap = new TmxMapLoader().load("map.tmx");
-        textureAtlas = new TextureAtlas(Assets.ATLAS);
 
 
         renderer = new SortRenderer(this);
 
         player = new Player(this);
         entities.add(player);
-        entities.add(new Worker(280, 128, this));
-        entities.add(new Worker(500, 128, this));
-        entities.add(new Worker(400, 500, this));
+        worldManager.registerWorker(new Worker(280, 128, this));
+        worldManager.registerWorker(new Worker(500, 128, this));
+        worldManager.registerWorker(new Worker(400, 500, this));
 
         generateColliders();
     }
@@ -71,6 +77,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
+        worldManager.updateInterest();
 
         updateCamera();
         ScreenUtils.clear(1, 0, 0, 1);
@@ -78,6 +85,10 @@ public class GameScreen implements Screen {
         renderer.render(batch);
         batch.end();
         if(StaticUtil.key(Input.Keys.G)) debugRenderer.render(physicsWorld, cam.combined);
+
+        HUDBatch.begin();
+        worldManager.render(HUDBatch);
+        HUDBatch.end();
     }
 
     @Override
@@ -108,6 +119,7 @@ public class GameScreen implements Screen {
 
     private void updateCamera(){
         cam.viewportWidth = width();
+        cam.zoom = (64f*TILESINVIEW)/width();
         cam.viewportHeight = height();
         cam.position.x = player.getX();
         cam.position.y = player.getY();

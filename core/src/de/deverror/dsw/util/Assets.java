@@ -2,6 +2,11 @@ package de.deverror.dsw.util;
 
 public class Assets {
 
+    public static final String tileset = "tiles.png";
+    public static final String chef = "Chef.png";
+    public static final String ok = "ok.png";
+    public static final String notOk = "notOk.png";
+    public static final String warning = "warning.png";
     public static final String TILESET = "tiles.png";
     public static final String CHEF = "Chef.png";
     public static final String OK = "ok.png";
