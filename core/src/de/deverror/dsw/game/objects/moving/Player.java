@@ -1,5 +1,6 @@
 package de.deverror.dsw.game.objects.moving;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -8,7 +9,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
-import de.deverror.dsw.game.objects.stat.Worker;
+import de.deverror.dsw.game.objects.stationary.Worker;
+import de.deverror.dsw.util.Assets;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 import static de.deverror.dsw.util.GameSettings.*;
@@ -16,6 +18,7 @@ import static de.deverror.dsw.util.GameSettings.*;
 public class Player implements Entity {
     Body body;
     GameScreen main;
+    Texture texture;
     public Player(GameScreen main){
         this.main = main;
         BodyDef bodyDef = new BodyDef();
@@ -33,6 +36,7 @@ public class Player implements Entity {
 
         body.createFixture(fixtureDef);
         shape.dispose();
+        texture = main.assets.get(Assets.chef);
     }
     @Override
     public float getX() {
@@ -46,7 +50,7 @@ public class Player implements Entity {
 
     @Override
     public void render(SpriteBatch batch) {
-
+        batch.draw(texture, getX(), getY());
     }
 
     @Override
@@ -54,13 +58,17 @@ public class Player implements Entity {
         Vector2 velocity = new Vector2(0, 0);
         if(key(UP)){
             velocity.y += PLAYERSPEED;
-        }else if(key(DOWN)){
+        }
+        if(key(DOWN)){
             velocity.y -= PLAYERSPEED;
-        }else if(key(LEFT)){
+        }
+        if(key(LEFT)){
             velocity.x -= PLAYERSPEED;
-        }else if(key(RIGHT)){
+        }
+        if(key(RIGHT)){
             velocity.x += PLAYERSPEED;
-        }else if(key(SCREAM)){
+        }
+        if(key(SCREAM)){
             scream();
         }
 

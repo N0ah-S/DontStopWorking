@@ -32,7 +32,9 @@ public class Main extends Game {
 
 	public void loadAssets() {
 		assets.load(Assets.tileset, Texture.class);
-
+		assets.load(Assets.chef, Texture.class);
+		assets.load(Assets.ok, Texture.class);
+		assets.load(Assets.notOk, Texture.class);
 		assets.finishLoading(); //ToDo: Put in loading screen-thread
 	}
 }

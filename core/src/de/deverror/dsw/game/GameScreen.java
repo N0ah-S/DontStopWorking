@@ -3,7 +3,6 @@ package de.deverror.dsw.game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.moving.Player;
-import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.game.objects.stationary.Worker;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 
@@ -30,13 +29,14 @@ public class GameScreen implements Screen {
     SpriteBatch batch;
 
     TiledMap tiledMap;
-    AssetManager assets;
+    public AssetManager assets;
     TextureAtlas textureAtlas;
 
     SortRenderer renderer;
 
     public GameScreen(AssetManager assets){
         entities = new ArrayList<>();
+        this.assets = assets;
 
         physicsWorld = new World(new Vector2(0, 0), true);
 
@@ -47,8 +47,9 @@ public class GameScreen implements Screen {
         tiledMap = new TmxMapLoader().load("map.tmx");
         player = new Player(this);
         entities.add(player);
+        entities.add(new Worker(300, 300, this));
+        entities.add(new Worker(500, 500, this));
 
-        this.assets = assets;
         textureAtlas = new TextureAtlas();
 
         renderer = new SortRenderer(this);
@@ -104,4 +105,13 @@ public class GameScreen implements Screen {
         cam.update();
         batch.setProjectionMatrix(cam.combined);
     }
+
+    /*private void updatePos(Entity entity, boolean up){
+        int pos = entities.indexOf(entity);
+        if(up){
+            while(pos > 0 && entities.get(pos-1).getY()<entity.getY()){
+
+            }
+        }
+    }*/
 }
