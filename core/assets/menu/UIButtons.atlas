@@ -1,0 +1,47 @@
+UIButtons.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Exit
+  rotate: false
+  xy: 2, 2
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
+ExitPressed
+  rotate: false
+  xy: 804, 635
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
+Play
+  rotate: false
+  xy: 54, 33
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
+PlayPressed
+  rotate: false
+  xy: 856, 635
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
+Settings
+  rotate: false
+  xy: 2, 33
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
+SettingsPressed
+  rotate: false
+  xy: 804, 604
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
