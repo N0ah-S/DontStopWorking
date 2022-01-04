@@ -14,11 +14,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.ScreenUtils;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
+import de.deverror.dsw.game.particles.ParticleRenderer;
+import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
 import de.deverror.dsw.util.ShapeUtils;
 import de.deverror.dsw.util.StaticUtil;
@@ -42,6 +43,8 @@ public class GameScreen implements Screen {
     TiledMap tiledMap;
     public AssetManager assets;
     public TextureAtlas textureAtlas;
+
+    public ParticleRenderer particles;
 
     SortRenderer renderer;
 
@@ -73,6 +76,8 @@ public class GameScreen implements Screen {
         worldManager.registerWorker(new Worker(280, 256, this));
 
         generateColliders();
+        loadParticles();
+        generateEyecandy();
     }
     @Override
     public void show() {
@@ -150,5 +155,17 @@ public class GameScreen implements Screen {
             body.createFixture(fixtureDef);
             shape.dispose();
         }
+    }
+
+    public void generateEyecandy(){
+        for (MapObject mapObject : tiledMap.getLayers().get(3).getObjects()) {
+            switch (mapObject.getName()){
+            }
+        }
+    }
+
+    private void loadParticles(){
+        particles = new ParticleRenderer();
+        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.2f));
     }
 }

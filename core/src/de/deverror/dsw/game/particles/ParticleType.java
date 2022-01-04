@@ -1,6 +1,5 @@
 package de.deverror.dsw.game.particles;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.ArrayList;
@@ -9,10 +8,12 @@ public class ParticleType {
     public TextureRegion texture; //0  1   2       3       4              5         6
     ArrayList<float[]> particles; //x, y, speedX, speedY, rotation, rotationSpeed, age
     final float DAMPING = 1;
+    public float scale;
 
-    public ParticleType(TextureRegion texture){
+    public ParticleType(TextureRegion texture, float scale){
         particles = new ArrayList<>();
         this.texture = texture;
+        this.scale = scale;
     }
 
     public void addParticle(float x, float y, float speedX, float speedY, float rotation, float rSpeed, float duration){

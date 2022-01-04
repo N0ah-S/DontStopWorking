@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
+import de.deverror.dsw.game.objects.Reciever;
 import de.deverror.dsw.util.Animation;
 import de.deverror.dsw.util.Animator;
 import de.deverror.dsw.util.Assets;
@@ -96,9 +97,9 @@ public class Player implements Entity {
 
     private void scream(){
         for(Entity entity : main.entities){
-            if(entity instanceof Worker){
+            if(entity instanceof Reciever){
                 float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                if(dist < 192) ((Worker) entity).motivate(15);
+                if(dist < 192) ((Worker) entity).engage(1, 15);
             }
         }
     }

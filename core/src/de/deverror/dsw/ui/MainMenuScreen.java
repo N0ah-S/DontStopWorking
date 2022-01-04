@@ -131,6 +131,6 @@ public class MainMenuScreen implements Screen {
     }
 
     public void loadParticles(){
-        particleRenderer.addParticleType(0, new ParticleType(menuAtlas.findRegion("Papier")));
+        particleRenderer.addParticleType(0, new ParticleType(menuAtlas.findRegion("Papier"), 1));
     }
 }
