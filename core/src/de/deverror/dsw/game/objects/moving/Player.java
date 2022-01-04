@@ -59,7 +59,7 @@ public class Player implements Entity {
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(animator.getTexture(), getX(), getY());
+        batch.draw(animator.getTexture(), getX()-70, getY()-15);
     }
 
     @Override

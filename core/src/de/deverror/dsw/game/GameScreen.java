@@ -150,13 +150,4 @@ public class GameScreen implements Screen {
             shape.dispose();
         }
     }
-
-    /*private void updatePos(Entity entity, boolean up){
-        int pos = entities.indexOf(entity);
-        if(up){
-            while(pos > 0 && entities.get(pos-1).getY()<entity.getY()){
-
-            }
-        }
-    }*/
 }
