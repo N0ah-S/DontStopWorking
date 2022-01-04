@@ -69,29 +69,29 @@ public class Player implements Entity {
     public void update(float delta) {
         walkcooldown -= delta;
         Vector2 velocity = new Vector2(0, 0);
-        if(key(UP)){
+        if(key(UP)) {
             velocity.y += PLAYERSPEED;
             dir = 0;
         }
-        if(key(DOWN)){
+        if(key(DOWN)) {
             velocity.y -= PLAYERSPEED;
             dir = 1;
         }
-        if(key(LEFT)){
+        if(key(LEFT)) {
             velocity.x -= PLAYERSPEED;
             dir = 2;
         }
-        if(key(RIGHT)){
+        if(key(RIGHT)) {
             velocity.x += PLAYERSPEED;
             dir = 3;
         }
-        if(key(SCREAM)){
+        if(key(SCREAM)) {
             scream();
         }
-        if(velocity.x == 0 && velocity.y == 0){
+        if(velocity.x == 0 && velocity.y == 0) {
             animator.start(dir);
-        }else{
-            animator.start(4+dir);
+        } else {
+            animator.start(4 + dir);
             if(walkcooldown <= 0){
                 for(Entity entity : main.entities){
                     if(entity instanceof Reciever){
