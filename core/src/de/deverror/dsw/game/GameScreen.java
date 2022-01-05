@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -35,6 +36,7 @@ import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
 import de.deverror.dsw.game.objects.stationary.Decoration;
+import de.deverror.dsw.game.objects.stationary.Microphone;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Coffee;
 import de.deverror.dsw.game.objects.stationary.eyecandy.PaperHeap;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Trashcan;
@@ -77,7 +79,7 @@ public class GameScreen implements Screen {
     private GaussianBlurEffect blur;
 
     boolean paused;
-    int menu; //0 = dead, 1 = won, 2 = menu
+    public static int menu; //0 = dead, 1 = won, 2 = menu
     Stage menuStage;
     TextureAtlas menuAtlas;
     Image menuBackground;
@@ -128,6 +130,9 @@ public class GameScreen implements Screen {
         //fxaa = new FxaaEffect(0.0078125F, 0.125F, 99.0F, true);
         //vfx.addEffect(fxaa);
         Gdx.input.setInputProcessor(menuStage);
+        labels[0].setVisible(false);
+        labels[1].setVisible(false);
+        labels[2].setVisible(false);
     }
 
     @Override
@@ -139,7 +144,9 @@ public class GameScreen implements Screen {
                 buttons[1].addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.delay(0.2f), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
                 buttons[2].addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.delay(0.4f), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
             }else{
+                menu = 2;
                 paused = true;
+                labels[menu].setVisible(true);
             }
         }
         if(!paused){
@@ -194,6 +201,14 @@ public class GameScreen implements Screen {
         buttons[0].setY(h/2f, Align.center);
         buttons[1].setY(h/2f-150, Align.center);
         buttons[2].setY(h/2f-300, Align.center);
+
+        labels[0].setX(w/2f, Align.center);
+        labels[1].setX(w/2f, Align.center);
+        labels[2].setX(w/2f, Align.center);
+
+        labels[0].setY(h/2f+200);
+        labels[1].setY(h/2f+200);
+        labels[2].setY(h/2f+200);
 
         menuStage.getViewport().update(w,h,true);
     }
@@ -261,6 +276,9 @@ public class GameScreen implements Screen {
                 case"paperheap":
                     entities.add(new PaperHeap(x, y, this));
                     break;
+                case "microphone":
+                    entities.add(new Microphone(this, x, y));
+                    break;
                 default:
                     TextureRegion region = textureAtlas.findRegion(mapObject.getName());
                     if(region != null){
@@ -309,6 +327,9 @@ public class GameScreen implements Screen {
         ImageButton playButton = new ImageButton(menuSkin, "play");
         ImageButton settingsButton = new ImageButton(menuSkin, "settings");
         ImageButton exitButton = new ImageButton(menuSkin, "exit");
+        Label won = new Label("Day Finished", menuSkin, "font", Color.GREEN);
+        Label loss = new Label("You're fired", menuSkin, "font", Color.RED);
+        Label menu = new Label("Pause", menuSkin, "font", Color.WHITE);
 
         playButton.setWidth(200);
         playButton.setHeight(120);
@@ -317,12 +338,20 @@ public class GameScreen implements Screen {
         exitButton.setWidth(200);
         exitButton.setHeight(120);
 
+        won.setVisible(false);
+        loss.setVisible(false);
+        menu.setVisible(false);
+
         buttons = new ImageButton[] {playButton, settingsButton, exitButton};
+        labels = new Label[] {loss, won, menu};
 
         menuStage.addActor(menuBackground);
         menuStage.addActor(playButton);
         menuStage.addActor(settingsButton);
         menuStage.addActor(exitButton);
+        menuStage.addActor(won);
+        menuStage.addActor(loss);
+        menuStage.addActor(menu);
         Gdx.input.setInputProcessor(menuStage);
 
         playButton.addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
@@ -333,6 +362,7 @@ public class GameScreen implements Screen {
         playButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("PLAY!");
+                if(GameScreen.menu == 2) paused = false;
             }
         });
         settingsButton.addListener(new ClickListener() {
@@ -346,5 +376,10 @@ public class GameScreen implements Screen {
                 main.setScreen(main.mainMenu);
             }
         });
+    }
+
+    public void openMenu(int nr){
+        paused = true;
+        menu = nr;
     }
 }
