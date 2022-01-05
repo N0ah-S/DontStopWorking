@@ -3,10 +3,9 @@ package de.deverror.dsw.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
-import de.deverror.dsw.game.objects.Reciever;
 import de.deverror.dsw.game.objects.moving.Player;
+import de.deverror.dsw.ui.abilities.Interactive;
 
 import static de.deverror.dsw.util.StaticUtil.len;
 
@@ -16,9 +15,9 @@ public class Ability {
 
     float iconPosX, iconPosY;
     TextureRegion icon;
+    TextureRegion interactiveIcon;
 
     boolean proximity;
-    Class<Entity> required;
     Player player;
 
     public Ability(Player owner, float x, float y, TextureRegion icon, float cooldown, int key){
@@ -31,15 +30,14 @@ public class Ability {
         proximity = false;
         player = owner;
     }
-    public Ability(Player owner, float x, float y, TextureRegion icon, float cooldown, int key, Class<Entity> required){
+    public Ability(Player owner, float x, float y, TextureRegion icon, float cooldown, int key, boolean proximity){
         this.key = key;
         iconPosX = x;
         iconPosY = y;
         current = cooldown;
         this.cooldown = cooldown;
         this.icon = icon;
-        proximity = false;
-        this.required = required;
+        this.proximity = proximity;
         player = owner;
     }
 
@@ -47,6 +45,7 @@ public class Ability {
         if(!isReady()) batch.setColor(Color.GRAY);
         batch.draw(icon, iconPosX, iconPosY);
         batch.setColor(Color.WHITE);
+        if(interactiveIcon != null) batch.draw(interactiveIcon, iconPosX+40, iconPosY-40);
     }
     public void update(float delta){
         current -= cooldown;
@@ -56,11 +55,15 @@ public class Ability {
     public boolean isReady(){
         if(proximity && current == 0){
             for(Entity entity : player.main.entities){
-                if(required.isInstance(entity)){
+                if(entity instanceof Interactive){
                     float dist = len(entity.getX()-player.getX(), entity.getY()-player.getY());
-                    if(dist < 120) return true;
+                    if(dist < 120){
+                        interactiveIcon = ((Interactive) entity).getIcon();
+                        return true;
+                    }
                 }
             }
+            interactiveIcon = null;
             return false;
         }else{
             return current == 0;

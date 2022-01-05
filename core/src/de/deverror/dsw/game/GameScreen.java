@@ -26,6 +26,7 @@ import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
 import de.deverror.dsw.game.objects.stationary.Decoration;
+import de.deverror.dsw.game.objects.stationary.Eyecandy;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Coffee;
 import de.deverror.dsw.game.objects.stationary.eyecandy.PaperHeap;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Trashcan;
@@ -48,7 +49,7 @@ public class GameScreen implements Screen {
 
     Box2DDebugRenderer debugRenderer;
     OrthographicCamera cam;
-    public SpriteBatch batch;
+    SpriteBatch batch;
     SpriteBatch HUDBatch;
 
     TiledMap tiledMap;
@@ -58,6 +59,8 @@ public class GameScreen implements Screen {
     public ParticleRenderer particles;
 
     SortRenderer renderer;
+    BitmapFont font;
+    int points = 0;
     float shakeTime = 0;
 
     private VfxManager vfx;
@@ -127,6 +130,7 @@ public class GameScreen implements Screen {
         batch.begin();
         renderer.render(batch);
         particles.render(batch);
+        particles.ceilrender(batch);
         worldManager.renderTransformed(batch);
         batch.end();
 
@@ -218,10 +222,15 @@ public class GameScreen implements Screen {
 
     private void loadParticles(){
         particles = new ParticleRenderer();
-        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.05f));
-        particles.addParticleType(1, new ParticleType(textureAtlas.findRegion("smoke"), 0.3f));
-        particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f));
-        particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f));
+        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.05f, true));
+        particles.addParticleType(1, new ParticleType(textureAtlas.findRegion("smoke"), 0.3f, false));
+        particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f, false));
+        particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f, false));
+        particles.addParticleType(4, new ParticleType(textureAtlas.findRegion("Blatt_partikel"), 1f, true));
+    }
+
+    public void renderFloorParticles(SpriteBatch batch){
+        particles.floorrender(batch);
     }
 
     public void shake() {

@@ -9,11 +9,13 @@ public class ParticleType {
     ArrayList<float[]> particles; //x, y, speedX, speedY, rotation, rotationSpeed, age
     final float DAMPING = 1;
     public float scale;
+    public boolean floor;
 
-    public ParticleType(TextureRegion texture, float scale){
+    public ParticleType(TextureRegion texture, float scale, boolean isFloor){
         particles = new ArrayList<>();
         this.texture = texture;
         this.scale = scale;
+        this.floor = isFloor;
     }
 
     public void addParticle(float x, float y, float speedX, float speedY, float rotation, float rSpeed, float duration){

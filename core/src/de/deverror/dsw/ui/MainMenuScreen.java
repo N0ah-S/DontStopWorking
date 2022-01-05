@@ -94,7 +94,8 @@ public class MainMenuScreen implements Screen {
         stage.act();
         stage.draw();
         stage.getBatch().begin();
-        particleRenderer.render(stage.getBatch());
+        particleRenderer.floorrender(stage.getBatch());
+        particleRenderer.ceilrender(stage.getBatch());
         stage.getBatch().end();
     }
 
@@ -131,6 +132,6 @@ public class MainMenuScreen implements Screen {
     }
 
     public void loadParticles(){
-        particleRenderer.addParticleType(0, new ParticleType(menuAtlas.findRegion("Papier"), 1));
+        particleRenderer.addParticleType(0, new ParticleType(menuAtlas.findRegion("Papier"), 1, true));
     }
 }

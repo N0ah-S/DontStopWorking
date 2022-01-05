@@ -47,6 +47,7 @@ public class SortRenderer {
         batch.setColor(Color.WHITE);
 
         entities.sort(EntitySortComparator.INSTANCE); //ToDo think about performance
+        game.renderFloorParticles(batch);
         for(int i = 0; i < entities.size(); i++) {
             entities.get(i).render(batch);
         }

@@ -114,7 +114,7 @@ public class Player implements Entity {
                 for(Entity entity : main.entities){
                     if(entity instanceof Reciever){
                         float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                        if(dist < 80) ((Reciever) entity).engage(0, 3);
+                        if(dist < 100) ((Reciever) entity).engage(0, 3);
                     }
                 }
                 walkcooldown = 2;
@@ -149,7 +149,8 @@ public class Player implements Entity {
 
     private void loadAbilities(){
         abilities = new HashMap<>();
-        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("Chef"), 2f, SCREAM));
+        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("fire/3"), 2f, SCREAM));
+        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("smoke"), 0f, SCREAM));
     }
 }
 
