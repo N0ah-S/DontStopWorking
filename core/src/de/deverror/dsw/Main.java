@@ -43,10 +43,6 @@ public class Main extends Game {
 
 	public void loadAssets() {
 		assets.load(Assets.TILESET, Texture.class);
-		assets.load(Assets.CHEF, Texture.class);
-		assets.load(Assets.OK, Texture.class);
-		assets.load(Assets.NOT_OK, Texture.class);
-		assets.load(Assets.warning, Texture.class);
 
 		assets.load(Assets.MENUSKIN, Skin.class);
 		assets.load(Assets.MENUATLAS, TextureAtlas.class);

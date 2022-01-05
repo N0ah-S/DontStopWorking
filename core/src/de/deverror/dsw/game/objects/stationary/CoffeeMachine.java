@@ -93,6 +93,6 @@ public class CoffeeMachine implements Entity {
     }
     @Override
     public float getSortY(){
-        return pos.y-100;
+        return pos.y-40;
     }
 }

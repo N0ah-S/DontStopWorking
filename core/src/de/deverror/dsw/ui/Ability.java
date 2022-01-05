@@ -43,23 +43,23 @@ public class Ability {
 
     public void render(SpriteBatch batch){
         if(!isReady()) batch.setColor(Color.GRAY);
-        batch.draw(icon, iconPosX, iconPosY);
+        batch.draw(icon, iconPosX, iconPosY, 100, 100);
         batch.setColor(Color.WHITE);
         if(interactiveIcon != null) batch.draw(interactiveIcon, iconPosX+40, iconPosY-40);
     }
     public void update(float delta){
-        current -= cooldown;
+        current -= delta;
         if(current < 0) current = 0;
     }
 
     public boolean isReady(){
-        if(proximity && current == 0){
+        if(proximity){
             for(Entity entity : player.main.entities){
                 if(entity instanceof Interactive){
                     float dist = len(entity.getX()-player.getX(), entity.getY()-player.getY());
                     if(dist < 120){
                         interactiveIcon = ((Interactive) entity).getIcon();
-                        return true;
+                        return current == 0;
                     }
                 }
             }

@@ -5,6 +5,6 @@ import de.deverror.dsw.game.objects.Entity;
 
 public interface Interactive extends Entity {
     public void activate();
-    public void isReady();
+    public boolean isReady();
     public TextureRegion getIcon();
 }

@@ -37,7 +37,7 @@ public class Eyecandy implements Entity, Reciever {
     }
     @Override
     public float getSortY(){
-        return y-100;
+        return y-40;
     }
 
     @Override

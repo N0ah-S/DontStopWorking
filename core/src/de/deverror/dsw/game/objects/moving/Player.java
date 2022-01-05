@@ -9,6 +9,7 @@ import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.Reciever;
 import de.deverror.dsw.ui.Ability;
+import de.deverror.dsw.ui.abilities.Interactive;
 import de.deverror.dsw.util.Animation;
 import de.deverror.dsw.util.Animator;
 import de.deverror.dsw.util.Assets;
@@ -74,6 +75,9 @@ public class Player implements Entity {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(animator.getTexture(), getX()-70, getY()-15);
+    }
+
+    public void renderHUD(SpriteBatch batch){
         for(Map.Entry<Integer, Ability> entry : abilities.entrySet()){
             entry.getValue().render(batch);
         }
@@ -106,6 +110,17 @@ public class Player implements Entity {
             scream();
             abilities.get(0).use();
         }
+        if(key(INTERACT) && abilities.get(0).isReady()){
+            for(Entity entity : main.entities){
+                if(entity instanceof Interactive){
+                    float dist = len(entity.getX()-getX(), entity.getY()-getY());
+                    if(dist < 120 && ((Interactive) entity).isReady()){
+                        ((Interactive) entity).activate();
+                        abilities.get(0).use();
+                    }
+                }
+            }
+        }
         if(velocity.x == 0 && velocity.y == 0) {
             animator.start(dir);
         } else {
@@ -130,7 +145,7 @@ public class Player implements Entity {
         for(Entity entity : main.entities){
             if(entity instanceof Reciever){
                 float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                if(dist < 192) ((Reciever) entity).engage(1, 15);
+                if(dist < 120) ((Reciever) entity).engage(1, 5);
             }
         }
     }
@@ -149,8 +164,8 @@ public class Player implements Entity {
 
     private void loadAbilities(){
         abilities = new HashMap<>();
-        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("fire/3"), 2f, SCREAM));
-        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("smoke"), 0f, SCREAM));
+        abilities.put(0, new Ability(this, 150, 30, main.textureAtlas.findRegion("Icon_Megaphon"), 2f, SCREAM));
+        abilities.put(1, new Ability(this, 300, 30, main.textureAtlas.findRegion("icon_interact"), 0f, INTERACT));
     }
 }
 

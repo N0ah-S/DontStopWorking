@@ -16,7 +16,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.crashinvaders.vfx.VfxManager;
 import com.crashinvaders.vfx.effects.BloomEffect;
 import com.crashinvaders.vfx.effects.FxaaEffect;
@@ -27,7 +26,6 @@ import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
 import de.deverror.dsw.game.objects.stationary.Decoration;
-import de.deverror.dsw.game.objects.stationary.Eyecandy;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Coffee;
 import de.deverror.dsw.game.objects.stationary.eyecandy.PaperHeap;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Trashcan;
@@ -66,6 +64,8 @@ public class GameScreen implements Screen {
     private VfxManager vfx;
     private BloomEffect bloom;
     private GaussianBlurEffect blur;
+
+    boolean paused;
 
     public GameScreen(AssetManager assets) {
         entities = new ArrayList<>();
@@ -146,6 +146,7 @@ public class GameScreen implements Screen {
 
         HUDBatch.begin();
         worldManager.renderUntransformed(HUDBatch);
+        player.renderHUD(HUDBatch);
         HUDBatch.end();
     }
 
