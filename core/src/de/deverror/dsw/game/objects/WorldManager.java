@@ -72,7 +72,7 @@ public class WorldManager {
         batch.draw(notOk, 0, 500*percentage-30, 0, 30, 500*(1-percentage), 30, 1, 1, 90);
         batch.draw(warning, 0, 500 * MININTEREST - 17);
 
-        font.draw(batch, text, Gdx.graphics.getWidth() - 30 - text.length() * 75, Gdx.graphics.getHeight() - 20);
+        font.draw(batch, text, 1400 - text.length() * 75, 1400*9/16 - 20);
     }
 
     public void renderTransformed(SpriteBatch batch) {
