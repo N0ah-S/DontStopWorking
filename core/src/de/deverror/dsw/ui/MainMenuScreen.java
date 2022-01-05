@@ -110,7 +110,7 @@ public class MainMenuScreen implements Screen {
 
         menuTable.invalidateHierarchy();
         menuTable.setSize(width, height);
-        menuTable.setX(width/2, Align.center);
+        menuTable.setX(width/2f, Align.center);
     }
 
     @Override

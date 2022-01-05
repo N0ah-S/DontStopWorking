@@ -20,10 +20,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -80,11 +77,12 @@ public class GameScreen implements Screen {
     private GaussianBlurEffect blur;
 
     boolean paused;
-    int menu; //0 = dead, 1 =
+    int menu; //0 = dead, 1 = won, 2 = menu
     Stage menuStage;
     TextureAtlas menuAtlas;
     Image menuBackground;
     ImageButton[] buttons;
+    Label[] labels;
     Skin menuSkin;
 
     public GameScreen(AssetManager assets, Main main) {
@@ -135,7 +133,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         if(keyjust(MENU)){
-            if(paused){
+            if(paused && menu == 2){
                 paused = false;
                 buttons[0].addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
                 buttons[1].addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.delay(0.2f), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
