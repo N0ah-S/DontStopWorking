@@ -30,6 +30,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.crashinvaders.vfx.VfxManager;
 import com.crashinvaders.vfx.effects.BloomEffect;
 import com.crashinvaders.vfx.effects.FxaaEffect;
+import com.crashinvaders.vfx.effects.GaussianBlurEffect;
 import de.deverror.dsw.Main;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
@@ -76,7 +77,7 @@ public class GameScreen implements Screen {
 
     private VfxManager vfx;
     private BloomEffect bloom;
-    private FxaaEffect fxaa;
+    private GaussianBlurEffect blur;
 
     boolean paused;
     int menu; //0 = dead, 1 =
@@ -177,8 +178,10 @@ public class GameScreen implements Screen {
         worldManager.renderUntransformed(HUDBatch);
         player.renderHUD(HUDBatch);
         HUDBatch.end();
-        menuStage.act(delta);
-        menuStage.draw();
+        if(paused) {
+            menuStage.act(delta);
+            menuStage.draw();
+        }
     }
 
     @Override

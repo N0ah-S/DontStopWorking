@@ -97,11 +97,11 @@ public class WorldManager {
             popups = new float[workers.size()][];
             for(int i = 0; i < workers.size(); i++) {
                 Worker w = workers.get(i);
-                popups[i] = new float[] {w.interest, w.getX() + 5, w.getY() + 120};
+                popups[i] = new float[] {w.getWorkEfficiency() / 3, w.getX() + 6, w.getY() + 120};
             }
         }
         for(int i = 0; i < workers.size(); i++) {
-            points += workers.get(i).interest * 0.003f;
+            points += workers.get(i).getWorkEfficiency() * 0.001f;
         }
     }
 }
