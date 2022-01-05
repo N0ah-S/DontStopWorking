@@ -16,6 +16,7 @@ public class Trashcan extends Eyecandy {
         current = 0;
         state = 0;
         speed = 20f;
+        dim = false;
     }
     @Override
     public void destroy(){

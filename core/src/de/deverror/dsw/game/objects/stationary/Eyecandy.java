@@ -13,6 +13,7 @@ public class Eyecandy implements Entity, Reciever {
     protected TextureRegion[] dead;
     protected float current, speed, destroyCooldown;
     protected int state;
+    protected boolean dim;
 
     protected GameScreen main;
 
@@ -41,7 +42,7 @@ public class Eyecandy implements Entity, Reciever {
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.setColor(Color.LIGHT_GRAY);
+        if(dim) batch.setColor(Color.LIGHT_GRAY);
         switch (state){
             case 0:
                 batch.draw(good[(int) current] , x, y);
