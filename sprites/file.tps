@@ -185,6 +185,213 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">Blatt_partikel.png</key>
+            <key type="filename">Computer_front.png</key>
+            <key type="filename">Computer_side.png</key>
+            <key type="filename">Fenster_regen.png</key>
+            <key type="filename">Mandarinen.png</key>
+            <key type="filename">Ordner.png</key>
+            <key type="filename">Topfpflanze.png</key>
+            <key type="filename">Zauberwuerfel.png</key>
+            <key type="filename">dont_stop.png</key>
+            <key type="filename">fire/0.png</key>
+            <key type="filename">fire/1.png</key>
+            <key type="filename">fire/2.png</key>
+            <key type="filename">fire/3.png</key>
+            <key type="filename">fire/4.png</key>
+            <key type="filename">fire/5.png</key>
+            <key type="filename">fire/6.png</key>
+            <key type="filename">fire/7.png</key>
+            <key type="filename">fire/8.png</key>
+            <key type="filename">paperStack/0.png</key>
+            <key type="filename">paperStack/1.png</key>
+            <key type="filename">paperStack/10.png</key>
+            <key type="filename">paperStack/11.png</key>
+            <key type="filename">paperStack/12.png</key>
+            <key type="filename">paperStack/13.png</key>
+            <key type="filename">paperStack/14.png</key>
+            <key type="filename">paperStack/15.png</key>
+            <key type="filename">paperStack/16.png</key>
+            <key type="filename">paperStack/17.png</key>
+            <key type="filename">paperStack/18.png</key>
+            <key type="filename">paperStack/19.png</key>
+            <key type="filename">paperStack/2.png</key>
+            <key type="filename">paperStack/20.png</key>
+            <key type="filename">paperStack/21.png</key>
+            <key type="filename">paperStack/22.png</key>
+            <key type="filename">paperStack/23.png</key>
+            <key type="filename">paperStack/24.png</key>
+            <key type="filename">paperStack/3.png</key>
+            <key type="filename">paperStack/4.png</key>
+            <key type="filename">paperStack/5.png</key>
+            <key type="filename">paperStack/6.png</key>
+            <key type="filename">paperStack/7.png</key>
+            <key type="filename">paperStack/8.png</key>
+            <key type="filename">paperStack/9.png</key>
+            <key type="filename">printer_front/0.png</key>
+            <key type="filename">printer_front/1.png</key>
+            <key type="filename">printer_front/2.png</key>
+            <key type="filename">printer_front/3.png</key>
+            <key type="filename">printer_front/4.png</key>
+            <key type="filename">printer_front/5.png</key>
+            <key type="filename">printer_front/6.png</key>
+            <key type="filename">smoke/smoke_0.png</key>
+            <key type="filename">smoke/smoke_1.png</key>
+            <key type="filename">smoke/smoke_2.png</key>
+            <key type="filename">smoke/smoke_3.png</key>
+            <key type="filename">trashcan_f/0.png</key>
+            <key type="filename">trashcan_f/1.png</key>
+            <key type="filename">trashcan_f/10.png</key>
+            <key type="filename">trashcan_f/11.png</key>
+            <key type="filename">trashcan_f/12.png</key>
+            <key type="filename">trashcan_f/13.png</key>
+            <key type="filename">trashcan_f/14.png</key>
+            <key type="filename">trashcan_f/15.png</key>
+            <key type="filename">trashcan_f/16.png</key>
+            <key type="filename">trashcan_f/17.png</key>
+            <key type="filename">trashcan_f/18.png</key>
+            <key type="filename">trashcan_f/19.png</key>
+            <key type="filename">trashcan_f/2.png</key>
+            <key type="filename">trashcan_f/20.png</key>
+            <key type="filename">trashcan_f/21.png</key>
+            <key type="filename">trashcan_f/22.png</key>
+            <key type="filename">trashcan_f/23.png</key>
+            <key type="filename">trashcan_f/24.png</key>
+            <key type="filename">trashcan_f/3.png</key>
+            <key type="filename">trashcan_f/4.png</key>
+            <key type="filename">trashcan_f/5.png</key>
+            <key type="filename">trashcan_f/6.png</key>
+            <key type="filename">trashcan_f/7.png</key>
+            <key type="filename">trashcan_f/8.png</key>
+            <key type="filename">trashcan_f/9.png</key>
+            <key type="filename">trashcan_fp/0.png</key>
+            <key type="filename">trashcan_fp/1.png</key>
+            <key type="filename">trashcan_fp/10.png</key>
+            <key type="filename">trashcan_fp/11.png</key>
+            <key type="filename">trashcan_fp/12.png</key>
+            <key type="filename">trashcan_fp/13.png</key>
+            <key type="filename">trashcan_fp/14.png</key>
+            <key type="filename">trashcan_fp/15.png</key>
+            <key type="filename">trashcan_fp/16.png</key>
+            <key type="filename">trashcan_fp/17.png</key>
+            <key type="filename">trashcan_fp/18.png</key>
+            <key type="filename">trashcan_fp/19.png</key>
+            <key type="filename">trashcan_fp/2.png</key>
+            <key type="filename">trashcan_fp/20.png</key>
+            <key type="filename">trashcan_fp/21.png</key>
+            <key type="filename">trashcan_fp/22.png</key>
+            <key type="filename">trashcan_fp/23.png</key>
+            <key type="filename">trashcan_fp/24.png</key>
+            <key type="filename">trashcan_fp/3.png</key>
+            <key type="filename">trashcan_fp/4.png</key>
+            <key type="filename">trashcan_fp/5.png</key>
+            <key type="filename">trashcan_fp/6.png</key>
+            <key type="filename">trashcan_fp/7.png</key>
+            <key type="filename">trashcan_fp/8.png</key>
+            <key type="filename">trashcan_fp/9.png</key>
+            <key type="filename">trashcan_p/0.png</key>
+            <key type="filename">trashcan_p/1.png</key>
+            <key type="filename">trashcan_p/10.png</key>
+            <key type="filename">trashcan_p/11.png</key>
+            <key type="filename">trashcan_p/12.png</key>
+            <key type="filename">trashcan_p/13.png</key>
+            <key type="filename">trashcan_p/14.png</key>
+            <key type="filename">trashcan_p/15.png</key>
+            <key type="filename">trashcan_p/16.png</key>
+            <key type="filename">trashcan_p/17.png</key>
+            <key type="filename">trashcan_p/18.png</key>
+            <key type="filename">trashcan_p/19.png</key>
+            <key type="filename">trashcan_p/2.png</key>
+            <key type="filename">trashcan_p/20.png</key>
+            <key type="filename">trashcan_p/21.png</key>
+            <key type="filename">trashcan_p/22.png</key>
+            <key type="filename">trashcan_p/23.png</key>
+            <key type="filename">trashcan_p/24.png</key>
+            <key type="filename">trashcan_p/3.png</key>
+            <key type="filename">trashcan_p/4.png</key>
+            <key type="filename">trashcan_p/5.png</key>
+            <key type="filename">trashcan_p/6.png</key>
+            <key type="filename">trashcan_p/7.png</key>
+            <key type="filename">trashcan_p/8.png</key>
+            <key type="filename">trashcan_p/9.png</key>
+            <key type="filename">worker/sleep_back/0.png</key>
+            <key type="filename">worker/sleep_back/1.png</key>
+            <key type="filename">worker/sleep_back/10.png</key>
+            <key type="filename">worker/sleep_back/11.png</key>
+            <key type="filename">worker/sleep_back/12.png</key>
+            <key type="filename">worker/sleep_back/13.png</key>
+            <key type="filename">worker/sleep_back/14.png</key>
+            <key type="filename">worker/sleep_back/15.png</key>
+            <key type="filename">worker/sleep_back/16.png</key>
+            <key type="filename">worker/sleep_back/17.png</key>
+            <key type="filename">worker/sleep_back/18.png</key>
+            <key type="filename">worker/sleep_back/19.png</key>
+            <key type="filename">worker/sleep_back/2.png</key>
+            <key type="filename">worker/sleep_back/3.png</key>
+            <key type="filename">worker/sleep_back/4.png</key>
+            <key type="filename">worker/sleep_back/5.png</key>
+            <key type="filename">worker/sleep_back/6.png</key>
+            <key type="filename">worker/sleep_back/7.png</key>
+            <key type="filename">worker/sleep_back/8.png</key>
+            <key type="filename">worker/sleep_back/9.png</key>
+            <key type="filename">worker/sleep_front/0.png</key>
+            <key type="filename">worker/sleep_front/1.png</key>
+            <key type="filename">worker/sleep_front/10.png</key>
+            <key type="filename">worker/sleep_front/11.png</key>
+            <key type="filename">worker/sleep_front/2.png</key>
+            <key type="filename">worker/sleep_front/3.png</key>
+            <key type="filename">worker/sleep_front/4.png</key>
+            <key type="filename">worker/sleep_front/5.png</key>
+            <key type="filename">worker/sleep_front/6.png</key>
+            <key type="filename">worker/sleep_front/7.png</key>
+            <key type="filename">worker/sleep_front/8.png</key>
+            <key type="filename">worker/sleep_front/9.png</key>
+            <key type="filename">worker/tap_back/0.png</key>
+            <key type="filename">worker/tap_back/1.png</key>
+            <key type="filename">worker/tap_back/10.png</key>
+            <key type="filename">worker/tap_back/11.png</key>
+            <key type="filename">worker/tap_back/2.png</key>
+            <key type="filename">worker/tap_back/3.png</key>
+            <key type="filename">worker/tap_back/4.png</key>
+            <key type="filename">worker/tap_back/5.png</key>
+            <key type="filename">worker/tap_back/6.png</key>
+            <key type="filename">worker/tap_back/7.png</key>
+            <key type="filename">worker/tap_back/8.png</key>
+            <key type="filename">worker/tap_back/9.png</key>
+            <key type="filename">worker/tap_front/0.png</key>
+            <key type="filename">worker/tap_front/1.png</key>
+            <key type="filename">worker/tap_front/2.png</key>
+            <key type="filename">worker/tap_front/3.png</key>
+            <key type="filename">worker/tap_front/4.png</key>
+            <key type="filename">worker/tap_front/5.png</key>
+            <key type="filename">worker/tap_front/6.png</key>
+            <key type="filename">worker/tap_front/7.png</key>
+            <key type="filename">worker/walk_back/0.png</key>
+            <key type="filename">worker/walk_back/1.png</key>
+            <key type="filename">worker/walk_back/2.png</key>
+            <key type="filename">worker/walk_front/0.png</key>
+            <key type="filename">worker/walk_front/1.png</key>
+            <key type="filename">worker/walk_front/2.png</key>
+            <key type="filename">worker/walk_left/0.png</key>
+            <key type="filename">worker/walk_left/1.png</key>
+            <key type="filename">worker/walk_left/2.png</key>
+            <key type="filename">worker/walk_right/0.png</key>
+            <key type="filename">worker/walk_right/1.png</key>
+            <key type="filename">worker/walk_right/2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9Paddings</key>
+                <rect>48,48,96,96</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Chef.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -197,6 +404,22 @@
                 <rect>16,34,32,68</rect>
                 <key>scale9Paddings</key>
                 <rect>16,34,32,68</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Icon_Megaphon.png</key>
+            <key type="filename">icon_interact.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>14,14,28,27</rect>
+                <key>scale9Paddings</key>
+                <rect>14,14,28,27</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -242,6 +465,27 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">kaffee/0.png</key>
+            <key type="filename">kaffee/1.png</key>
+            <key type="filename">kaffee/2.png</key>
+            <key type="filename">kaffee/3.png</key>
+            <key type="filename">kaffee/4.png</key>
+            <key type="filename">kaffee/5.png</key>
+            <key type="filename">kaffee/6.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>5,10,9,20</rect>
+                <key>scale9Paddings</key>
+                <rect>5,10,9,20</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">notOk.png</key>
             <key type="filename">ok.png</key>
             <struct type="IndividualSpriteSettings">
@@ -255,6 +499,41 @@
                 <rect>11,3,23,7</rect>
                 <key>scale9Paddings</key>
                 <rect>11,3,23,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">smoke.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">speech/0.png</key>
+            <key type="filename">speech/1.png</key>
+            <key type="filename">speech/2.png</key>
+            <key type="filename">speech/3.png</key>
+            <key type="filename">speech/4.png</key>
+            <key type="filename">speech/5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>15,15,30,30</rect>
+                <key>scale9Paddings</key>
+                <rect>15,15,30,30</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

@@ -3,12 +3,10 @@ package de.deverror.dsw.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ai.GdxAI;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,7 +26,6 @@ import de.deverror.dsw.game.objects.moving.Player;
 import de.deverror.dsw.game.objects.moving.Worker;
 import de.deverror.dsw.game.objects.stationary.CoffeeMachine;
 import de.deverror.dsw.game.objects.stationary.Decoration;
-import de.deverror.dsw.game.objects.stationary.Eyecandy;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Coffee;
 import de.deverror.dsw.game.objects.stationary.eyecandy.PaperHeap;
 import de.deverror.dsw.game.objects.stationary.eyecandy.Trashcan;
@@ -37,7 +34,6 @@ import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
 import de.deverror.dsw.util.ShapeUtils;
 import de.deverror.dsw.util.StaticUtil;
-import com.crashinvaders.vfx.effects.GaussianBlurEffect;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 import static de.deverror.dsw.util.GameSettings.*;
@@ -52,7 +48,7 @@ public class GameScreen implements Screen {
 
     Box2DDebugRenderer debugRenderer;
     OrthographicCamera cam;
-    SpriteBatch batch;
+    public SpriteBatch batch;
     SpriteBatch HUDBatch;
 
     TiledMap tiledMap;
@@ -62,8 +58,6 @@ public class GameScreen implements Screen {
     public ParticleRenderer particles;
 
     SortRenderer renderer;
-    BitmapFont font;
-    int points = 0;
     float shakeTime = 0;
 
     private VfxManager vfx;
@@ -92,18 +86,15 @@ public class GameScreen implements Screen {
         player = new Player(this);
         entities.add(player);
 
-        worldManager.registerWorker(new Worker(280, 128, this));
-        worldManager.registerWorker(new Worker(500, 128, this));
-        worldManager.registerWorker(new Worker(500, 256, this));
-        worldManager.registerWorker(new Worker(270, 500, this));
-        worldManager.registerWorker(new Worker(280, 256, this));
+        worldManager.registerWorker(new Worker(280, 128 + 64, this));
+        worldManager.registerWorker(new Worker(500, 128 + 64, this));
+        worldManager.registerWorker(new Worker(500, 256 + 64, this));
+        worldManager.registerWorker(new Worker(270, 500 + 64, this));
+        worldManager.registerWorker(new Worker(280, 256 + 64, this));
 
         generateColliders();
         loadParticles();
         generateEntities();
-
-        font = new BitmapFont(Gdx.files.internal("skin/Unnamed.fnt"));
-        font.setColor(0.25f, 1f, 0.12f, 1);
     }
     @Override
     public void show() {
@@ -118,27 +109,25 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        bloom.setBloomIntensity((float) Math.random() * 5);
+        bloom.setBloomIntensity(2.6f + (float) Math.random() * 1.4f);
 
         shakeTime -= delta * 5;
 
-        //System.out.println(1f/delta);
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
-        worldManager.updateInterest();
+        worldManager.update(delta);
         particles.update(delta);
 
         updateCamera();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
                 (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
-
         vfx.cleanUpBuffers();
-
 
         vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
         particles.render(batch);
+        worldManager.renderTransformed(batch);
         batch.end();
 
         vfx.endInputCapture();
@@ -148,9 +137,7 @@ public class GameScreen implements Screen {
         if(StaticUtil.key(Input.Keys.G)) debugRenderer.render(physicsWorld, cam.combined);
 
         HUDBatch.begin();
-        worldManager.render(HUDBatch);
-        String text = Integer.toString(points);
-        font.draw(HUDBatch, text, vfx.getWidth() - 30 - text.length() * 75, vfx.getHeight() - 20);
+        worldManager.renderUntransformed(HUDBatch);
         HUDBatch.end();
     }
 
@@ -175,12 +162,12 @@ public class GameScreen implements Screen {
         cam.viewportHeight = height();
         if(shakeTime > 0) {
             cam.zoom = (64f*TILESINVIEW)/width() - (float) Math.random() * 0.05f;
-            cam.position.x = (int) (player.getX() + Math.sin(Math.max(shakeTime, 0) * 15) * 4 + Math.random() * 3);
-            cam.position.y = (int) (player.getY() + Math.cos(Math.max(shakeTime + Math.random() * 5, 0) * 10) * 4);
+            cam.position.x = (float) (player.getX() + Math.sin(Math.max(shakeTime, 0) * 15) * 4 + Math.random() * 3);
+            cam.position.y = (float) (player.getY() + Math.cos(Math.max(shakeTime + Math.random() * 5, 0) * 10) * 4);
         } else {
             cam.zoom = (64f*TILESINVIEW)/width();
-            cam.position.x = (int) player.getX();
-            cam.position.y = (int) player.getY();
+            cam.position.x = player.getX();
+            cam.position.y = player.getY();
         }
         cam.update();
         batch.setProjectionMatrix(cam.combined);

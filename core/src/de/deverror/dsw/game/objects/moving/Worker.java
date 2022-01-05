@@ -51,6 +51,10 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     ArrayList<Vector2> targets;
     State state = State.Working;
 
+    TextureRegion[] bubbles;
+    float talkyTime, waitTime;
+    int bubbleState;
+
     Animator animator;
 
     public Worker(float x, float y, GameScreen game) {
@@ -78,6 +82,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         animator = new Animator();
         loadAnimations();
 
+        bubbles = StaticUtil.getAnimation("speech", 6, game.textureAtlas);
     }
 
     public void createBody() {
@@ -109,17 +114,35 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         batch.setColor(Color.LIGHT_GRAY);
 
         //Pop Elements
-        float pY = body.getPosition().y + 80;
+        float pY = body.getPosition().y + 100;
         float percentage = Math.min(interest, MAXINTEREST) / MAXINTEREST;
 
-        batch.draw(ok, (int) body.getPosition().x - 10,                 pY, 50 * percentage, 15);
-        batch.draw(notOk, body.getPosition().x + 50 * percentage - 10,  pY, 50 * (1 - percentage), 15);
+        if(state != State.Talking) {
+            batch.draw(ok, (int) body.getPosition().x - 5, pY, 50 * percentage, 15);
+            batch.draw(notOk, body.getPosition().x + 50 * percentage - 5, pY, 50 * (1 - percentage), 15);
+        } else if(waitTime < 0){
+            batch.setColor(0.75f, 0.75f, 0.75f, Math.min(0.3f, talkyTime) / 0.3f);
+            batch.draw(bubbles[bubbleState], (int) body.getPosition().x - 20, pY, 45, 45);
+        }
         batch.setColor(Color.WHITE);
     }
 
     @Override
     public void update(float delta) {
         animator.tick(delta);
+
+        if(state == State.Talking) {
+            if(talkyTime < 0) {
+                bubbleState = StaticUtil.random.nextInt(6);
+                talkyTime   = StaticUtil.random.nextFloat() * 3.5f + 0.3f;
+                waitTime    = StaticUtil.random.nextFloat() * 5;
+            }
+            if(waitTime > 0) waitTime -= delta;
+            else {
+                talkyTime -= delta;
+            }
+        }
+
         x = body.getPosition().x;
         y = body.getPosition().y;
         if(!targets.isEmpty()) {
@@ -132,26 +155,22 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
             boolean down = (ty - tolerance > y);
 
             if(state == State.Walking || state == (State.Talking)) {
-                float dst1 = getPosition().dst(game.worldManager.coffee.getX(),
-                        game.worldManager.coffee.getY());
-                if(dst1 < 190) {
-                    for (Worker w : game.worldManager.workers) {
-                        float dst2 = getPosition().dst(w.getPosition());
+                float dstC = getPosition().dst(game.worldManager.coffee.getX(), game.worldManager.coffee.getY());
+                for (Worker w : game.worldManager.workers) {
+                    float dst = getPosition().dst(w.getPosition());
 
-                        if(dst2 > 2 && dst2 < 65) {
-                            state = State.Talking;
-                            body.setLinearVelocity(0, 0);
-                            return;
-                        }
+                    if(dst > 2 && dst < (65 - dstC * 0.1f)) {
+                        state = State.Talking;
+                        body.setLinearVelocity(0, 0);
+                        return;
                     }
                 }
-
             }
 
-            if (left && !right) body.setLinearVelocity(-speed, 0);
-            else if (!left && right) body.setLinearVelocity(speed, 0);
-            else if (up && !down) body.setLinearVelocity(0, -speed);
-            else if (!up && down) body.setLinearVelocity(0, speed);
+            if (left && !right)         body.setLinearVelocity(-speed, 0);
+            else if (!left && right)    body.setLinearVelocity( speed, 0);
+            else if (up && !down)       body.setLinearVelocity(0, -speed);
+            else if (!up && down)       body.setLinearVelocity(0,  speed);
             else {
                 targets.remove(0);
                 body.setLinearVelocity(0, 0);
@@ -239,6 +258,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     public float getY() {
         return body.getPosition().y;
     }
+
     @Override
     public float getSortY(){
         return getY();
@@ -247,7 +267,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     public void backToWork() {
         if(state == State.GoingBack) return;
         state = State.GoingBack;
-        engage(1, 2);
+        engage(1, 10);
 
         target(x + 50, y - 60);
         target(hx + 134,  y - 60);
