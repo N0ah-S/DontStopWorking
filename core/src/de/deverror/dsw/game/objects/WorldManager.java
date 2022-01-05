@@ -23,8 +23,7 @@ public class WorldManager {
 
 
     float interest, interestMax;
-    TextureRegion ok, notOk;
-    Texture warning;
+    TextureRegion ok, notOk, warning;
     GameScreen main;
 
 
@@ -41,7 +40,7 @@ public class WorldManager {
 
         ok = main.textureAtlas.findRegion("ok");
         notOk = main.textureAtlas.findRegion("notOk");
-        warning = main.assets.get(Assets.warning);
+        warning = main.textureAtlas.findRegion("warning");
 
 
         font = new BitmapFont(Gdx.files.internal("skin/Unnamed.fnt"));
