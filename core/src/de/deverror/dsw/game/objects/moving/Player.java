@@ -125,7 +125,8 @@ public class Player implements Entity {
         animator.tick(delta);
     }
 
-    private void scream(){
+    private void scream() {
+        main.shake();
         for(Entity entity : main.entities){
             if(entity instanceof Reciever){
                 float dist = len(entity.getX()-getX(), entity.getY()-getY());

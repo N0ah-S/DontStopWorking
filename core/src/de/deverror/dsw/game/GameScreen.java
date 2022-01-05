@@ -64,12 +64,13 @@ public class GameScreen implements Screen {
     SortRenderer renderer;
     BitmapFont font;
     int points = 0;
+    float shakeTime = 0;
 
     private VfxManager vfx;
     private BloomEffect bloom;
     private FxaaEffect fxaa;
 
-    public GameScreen(AssetManager assets){
+    public GameScreen(AssetManager assets) {
         entities = new ArrayList<>();
         this.assets = assets;
         textureAtlas = new TextureAtlas(Assets.ATLAS);
@@ -117,6 +118,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        bloom.setBloomIntensity((float) Math.random() * 5);
+
+        shakeTime -= delta * 5;
+
         //System.out.println(1f/delta);
         physicsWorld.step(delta, 6, 2);
         for(Entity entity : entities) entity.update(delta);
@@ -126,10 +131,10 @@ public class GameScreen implements Screen {
         updateCamera();
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT |
                 (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
-        // Clean up internal buffers, as we don't need any information from the last render.
+
         vfx.cleanUpBuffers();
 
-        // Begin render to an off-screen buffer.
+
         vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
@@ -137,10 +142,7 @@ public class GameScreen implements Screen {
         batch.end();
 
         vfx.endInputCapture();
-
         vfx.applyEffects();
-
-        // Render result to the screen.
         vfx.renderToScreen();
 
         if(StaticUtil.key(Input.Keys.G)) debugRenderer.render(physicsWorld, cam.combined);
@@ -159,21 +161,6 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
     public void dispose() {
         batch.dispose();
         HUDBatch.dispose();
@@ -183,12 +170,18 @@ public class GameScreen implements Screen {
         bloom.dispose();
     }
 
-    private void updateCamera(){
+    private void updateCamera() {
         cam.viewportWidth = width();
-        cam.zoom = (64f*TILESINVIEW)/width();
         cam.viewportHeight = height();
-        cam.position.x = player.getX();
-        cam.position.y = player.getY();
+        if(shakeTime > 0) {
+            cam.zoom = (64f*TILESINVIEW)/width() - (float) Math.random() * 0.05f;
+            cam.position.x = (int) (player.getX() + Math.sin(Math.max(shakeTime, 0) * 15) * 4 + Math.random() * 3);
+            cam.position.y = (int) (player.getY() + Math.cos(Math.max(shakeTime + Math.random() * 5, 0) * 10) * 4);
+        } else {
+            cam.zoom = (64f*TILESINVIEW)/width();
+            cam.position.x = (int) player.getX();
+            cam.position.y = (int) player.getY();
+        }
         cam.update();
         batch.setProjectionMatrix(cam.combined);
     }
@@ -243,4 +236,17 @@ public class GameScreen implements Screen {
         particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f));
         particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f));
     }
+
+    public void shake() {
+        shakeTime = 1;
+    }
+
+    @Override
+    public void pause() {}
+
+    @Override
+    public void resume() {}
+
+    @Override
+    public void hide() {}
 }
