@@ -21,9 +21,12 @@ import de.deverror.dsw.Main;
 import de.deverror.dsw.game.particles.ParticleRenderer;
 import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.util.ThreadUtil;
+
 import static de.deverror.dsw.util.StaticUtil.*;
 
 public class MainMenuScreen implements Screen {
+
     Main main;
     Skin menuSkin;
     TextureAtlas menuAtlas;
@@ -68,7 +71,7 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("PLAY!");
                 particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
-                main.setScreen(main.game);
+                main.changeScreen(main.game);
             }
         });
         settingsButton.addListener(new ClickListener() {
@@ -81,6 +84,7 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("EXIT!");
                 particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
+                ThreadUtil.startDelayedInMain(() -> { Gdx.app.exit(); }, 500);
             }
         });
     }

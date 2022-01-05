@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.crashinvaders.vfx.VfxManager;
 import com.crashinvaders.vfx.effects.BloomEffect;
 import com.crashinvaders.vfx.effects.FxaaEffect;
+import com.crashinvaders.vfx.effects.GaussianBlurEffect;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.WorldManager;
 import de.deverror.dsw.game.objects.moving.Player;
@@ -64,7 +65,7 @@ public class GameScreen implements Screen {
 
     private VfxManager vfx;
     private BloomEffect bloom;
-    private FxaaEffect fxaa;
+    private GaussianBlurEffect blur;
 
     public GameScreen(AssetManager assets) {
         entities = new ArrayList<>();
@@ -105,6 +106,11 @@ public class GameScreen implements Screen {
         bloom = new BloomEffect();
         bloom.setBloomIntensity(2);
         vfx.addEffect(bloom);
+
+        blur = new GaussianBlurEffect(GaussianBlurEffect.BlurType.Gaussian5x5);
+        blur.setAmount(5);
+        //vfx.addEffect(blur); Copy; required for PAUSE screen
+
         //fxaa = new FxaaEffect(0.0078125F, 0.125F, 99.0F, true);
         //vfx.addEffect(fxaa);
     }

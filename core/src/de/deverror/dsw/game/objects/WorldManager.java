@@ -103,7 +103,7 @@ public class WorldManager {
             }
         }
         for(int i = 0; i < workers.size(); i++) {
-            points += workers.get(i).interest * 0.003f;
+            points += workers.get(i).interest * 0.001f;
         }
     }
 }
