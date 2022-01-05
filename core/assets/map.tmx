@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="22" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="42">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="22" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="57">
  <tileset firstgid="1" source="tiles.tsx"/>
  <layer id="1" name="bg" width="22" height="15">
   <data encoding="csv">
@@ -58,6 +58,8 @@
   <object id="21" name="tisch" x="475.417" y="613.667" width="134" height="27.25"/>
   <object id="22" name="tisch" x="798.458" y="165.438" width="134" height="27.25"/>
   <object id="23" name="tisch" x="1054.21" y="167.313" width="134" height="27.25"/>
+  <object id="44" name="tisch" x="65" y="276.375" width="55" height="127.25"/>
+  <object id="45" name="tisch" x="1218.5" y="217.375" width="55" height="127.25"/>
  </objectgroup>
  <objectgroup id="4" name="entities">
   <object id="24" name="kaffee" x="732" y="176">
@@ -72,7 +74,7 @@
   <object id="27" name="trashcan" x="100" y="178">
    <point/>
   </object>
-  <object id="32" name="coffeemachine" x="824" y="153.636">
+  <object id="32" name="Zauberwuerfel" x="908.667" y="134.636">
    <point/>
   </object>
   <object id="33" name="kaffee" x="594" y="214">
@@ -87,16 +89,52 @@
   <object id="36" name="kaffee" x="482" y="724">
    <point/>
   </object>
-  <object id="37" name="kaffee" x="236" y="338">
+  <object id="37" name="Mandarinen" x="262.25" y="453.75">
    <point/>
   </object>
-  <object id="38" name="kaffee" x="88" y="344">
+  <object id="38" name="kaffee" x="111.25" y="297">
    <point/>
   </object>
   <object id="40" name="trashcan" x="792" y="504">
    <point/>
   </object>
   <object id="41" name="paperheap" x="918" y="436">
+   <point/>
+  </object>
+  <object id="42" name="Computer_front" x="565.75" y="706.5">
+   <point/>
+  </object>
+  <object id="43" name="Computer_front" x="288" y="720">
+   <point/>
+  </object>
+  <object id="46" name="Topfpflanze" x="731" y="793">
+   <point/>
+  </object>
+  <object id="47" name="Ordner" x="108.75" y="363">
+   <point/>
+  </object>
+  <object id="49" name="Ordner" x="1249" y="303">
+   <point/>
+  </object>
+  <object id="50" name="Ordner" x="1248" y="239">
+   <point/>
+  </object>
+  <object id="51" name="Ordner" x="1241" y="168">
+   <point/>
+  </object>
+  <object id="52" name="Ordner" x="1093" y="136">
+   <point/>
+  </object>
+  <object id="53" name="Fenster_regen" x="665" y="65">
+   <point/>
+  </object>
+  <object id="54" name="coffeemachine" x="825.25" y="142.5">
+   <point/>
+  </object>
+  <object id="55" name="paperheap" x="681" y="759">
+   <point/>
+  </object>
+  <object id="56" name="kaffee" x="238" y="328">
    <point/>
   </object>
  </objectgroup>

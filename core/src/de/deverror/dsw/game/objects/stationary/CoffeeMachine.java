@@ -49,7 +49,7 @@ public class CoffeeMachine implements Entity {
                 state = 0;
                 step = 0;
                 if(queue[0] != null) {
-                    queue[0].backToWork();
+                    queue[0].backToWork(14);
                     if(queue[1] != null) {
                         queue[0] = queue[1];
                         queue[1] = null;

@@ -14,5 +14,5 @@ public class GameSettings {
     public static final float MAXINTEREST = 15;
     public static final float MININTEREST = 0.2f;
 
-    public static final int TILESINVIEW = 14;
+    public static final int TILESINVIEW = 12;
 }

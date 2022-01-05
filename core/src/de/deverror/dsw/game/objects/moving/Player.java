@@ -1,5 +1,7 @@
 package de.deverror.dsw.game.objects.moving;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,6 +15,7 @@ import de.deverror.dsw.ui.abilities.Interactive;
 import de.deverror.dsw.util.Animation;
 import de.deverror.dsw.util.Animator;
 import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.util.StaticUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +32,7 @@ public class Player implements Entity {
     float walkcooldown;
 
     HashMap<Integer, Ability> abilities;
+    Sound[] screams;
 
     public Player(GameScreen main){
         this.main = main;
@@ -56,6 +60,11 @@ public class Player implements Entity {
         animator = new Animator();
         loadAnimations();
         loadAbilities();
+
+        screams = new Sound[4];
+        for (int i = 0; i < screams.length; i++) {
+            screams[i] = Gdx.audio.newSound(Gdx.files.internal("sounds/dsw/" + i + ".wav"));
+        }
     }
 
     @Override
@@ -129,7 +138,7 @@ public class Player implements Entity {
                 for(Entity entity : main.entities){
                     if(entity instanceof Reciever){
                         float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                        if(dist < 100) ((Reciever) entity).engage(0, 3);
+                        if(dist < 100) ((Reciever) entity).engage(0, 4);
                     }
                 }
                 walkcooldown = 2;
@@ -141,11 +150,12 @@ public class Player implements Entity {
     }
 
     private void scream() {
+        screams[random.nextInt(screams.length)].play();
         main.shake();
         for(Entity entity : main.entities){
             if(entity instanceof Reciever){
                 float dist = len(entity.getX()-getX(), entity.getY()-getY());
-                if(dist < 120) ((Reciever) entity).engage(1, 5);
+                if(dist < 120) ((Reciever) entity).engage(1, 10);
             }
         }
     }

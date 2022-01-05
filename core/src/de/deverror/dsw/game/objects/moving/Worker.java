@@ -104,7 +104,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         body.setTransform(x, y - 26, 0);
         shape.dispose();
 
-        interest = StaticUtil.random.nextInt(4); //ToDo actual values
+        interest = 12; //StaticUtil.random.nextInt(4); //UnToDo actual values
 
     }
 
@@ -223,7 +223,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
             }
         }
 
-        if(state != State.Working) return;
+        if(state != State.Working && state == State.Talking) return;
         //Pop Elements
         interest -= delta;
         if (interest < 0) {
@@ -235,7 +235,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     public void engage(int intensity, int amount) {
         interest += amount;
         if (interest > MAXINTEREST) interest = MAXINTEREST;
-        if(state == State.Talking) backToWork();
+        if(state == State.Talking) backToWork(1);
     }
 
     @Override
@@ -278,10 +278,10 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         return getY();
     }
 
-    public void backToWork() {
+    public void backToWork(int amount) {
         if(state == State.GoingBack) return;
         state = State.GoingBack;
-        engage(1, 10);
+        engage(1, amount);
 
         target(x + 50, y - 60);
         target(hx + 134,  y - 60);
