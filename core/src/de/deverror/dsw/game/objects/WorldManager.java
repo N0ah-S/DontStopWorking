@@ -81,7 +81,7 @@ public class WorldManager {
             popupFont.setColor(0.3f, 1f, 0.15f, fade);
             for (int i = 0; i < popups.length; i++) {
                 System.out.println(" > Y: " + popups[i][Y]);
-                popupFont.draw(batch, "+" + ((int) popups[i][POINTS]), popups[i][X], popups[i][Y] - untilNextCheck * 4);
+                popupFont.draw(batch, "+" + ((int) popups[i][POINTS] / 3), popups[i][X], popups[i][Y] - untilNextCheck * 4);
             }
         }
     }
@@ -103,7 +103,7 @@ public class WorldManager {
             }
         }
         for(int i = 0; i < workers.size(); i++) {
-            points += workers.get(i).interest * 0.01f;
+            points += workers.get(i).interest * 0.003f;
         }
     }
 }

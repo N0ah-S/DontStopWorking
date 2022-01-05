@@ -59,7 +59,6 @@ public class GameScreen implements Screen {
     public ParticleRenderer particles;
 
     SortRenderer renderer;
-    BitmapFont font;
     int points = 0;
     float shakeTime = 0;
 
@@ -129,7 +128,6 @@ public class GameScreen implements Screen {
         vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
-        particles.render(batch);
         particles.ceilrender(batch);
         worldManager.renderTransformed(batch);
         batch.end();

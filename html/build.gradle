@@ -12,6 +12,16 @@ gwt {
         strict = true;
         disableCastChecking = true;
     }
+
+    dependencies {
+
+        implementation 'com.crashinvaders.vfx:gdx-vfx-core:0.5.0:sources'
+        implementation 'com.crashinvaders.vfx:gdx-vfx-gwt:0.5.0'
+        implementation 'com.crashinvaders.vfx:gdx-vfx-gwt:0.5.0:sources'
+
+        // Optional, in case you use "gdx-vfx-effects" module.
+        implementation 'com.crashinvaders.vfx:gdx-vfx-effects:0.5.0:sources'
+    }
 }
 
 import org.wisepersist.gradle.plugins.gwt.GwtSuperDev
