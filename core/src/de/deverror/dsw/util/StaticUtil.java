@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.Random;
 
@@ -16,6 +17,9 @@ public class StaticUtil {
 
     public static boolean key(int key){
         return Gdx.input.isKeyPressed(key);
+    }
+    public static boolean keyjust(int key){
+        return Gdx.input.isKeyJustPressed(key);
     }
 
     public static int width(){

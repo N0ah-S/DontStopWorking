@@ -9,6 +9,7 @@ public class GameSettings {
     public static final int RIGHT = Input.Keys.D;
     public static final int SCREAM = Input.Keys.SPACE;
     public static final int INTERACT = Input.Keys.E;
+    public static final int MENU = Input.Keys.ESCAPE;
 
     public static final float PLAYERSPEED = 500f;
     public static final float MAXINTEREST = 15;

@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.ui.MainMenuScreen;
 import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.util.StaticUtil;
 
 public class Main extends Game {
 	public AssetManager assets;
@@ -23,7 +24,7 @@ public class Main extends Game {
 		loadAssets();
 
 		mainMenu = new MainMenuScreen(this);
-		game = new GameScreen(assets);
+		game = new GameScreen(assets, this);
 
 		setScreen(mainMenu);
 	}
