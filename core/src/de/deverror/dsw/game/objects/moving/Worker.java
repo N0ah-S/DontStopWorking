@@ -56,6 +56,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
     int bubbleState;
 
     Animator animator;
+    boolean flip;
 
     public Worker(float x, float y, GameScreen game) {
         this.hx = x;
@@ -103,13 +104,14 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         body.setTransform(x, y - 26, 0);
         shape.dispose();
 
-        if(y == 500) interest = 0;
+        interest = StaticUtil.random.nextInt(4); //ToDo actual values
 
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.setColor(color);
+        if(animator.getTexture().isFlipX() != flip) animator.getTexture().flip(true, false);
         batch.draw(animator.getTexture(), (int) body.getPosition().x, (int) body.getPosition().y);
         batch.setColor(Color.LIGHT_GRAY);
 
@@ -129,6 +131,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
 
     @Override
     public void update(float delta) {
+        flip = false;
         animator.tick(delta);
 
         if(state == State.Talking) {
@@ -162,9 +165,42 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
                     if(dst > 2 && dst < (65 - dstC * 0.1f)) {
                         state = State.Talking;
                         body.setLinearVelocity(0, 0);
+                        Vector2 dir = getPosition().sub(w.getPosition()).nor();
+                        if(Math.abs(dir.x) > Math.abs(dir.y)) {
+                            animator.start(3);
+                            flip = dir.x < 0;
+                        } else {
+                            if (dir.y < 0) {
+                                animator.start(0);
+                            } else {
+                                animator.start(1);
+                            }
+                        }
                         return;
                     }
                 }
+            }
+
+            Vector2 direction = body.getLinearVelocity();
+            if(direction.len() > 0.1f) {
+                if(Math.abs(direction.x) > Math.abs(direction.y)){
+                    if(direction.x > 0){
+                        animator.start(7);
+                    }else{
+                        animator.start(6);
+                        flip = true;
+                    }
+                }else{
+                    if(direction.y > 0){
+                        animator.start(4);
+                    }else{
+                        animator.start(5);
+                    }
+                }
+            } else if(state == State.Working){
+                animator.start(2);
+            } else {
+                animator.start(8);
             }
 
             if (left && !right)         body.setLinearVelocity(-speed, 0);
@@ -179,34 +215,12 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
                     case Walking:
                         state = State.Coffee;
                         game.worldManager.coffee.makeCoffee(this);
-                        System.out.println("Make Coffee ");
                         break;
                     case GoingBack:
                         state = State.Working;
                         break;
                 }
             }
-        }
-
-        Vector2 direction = body.getLinearVelocity();
-        if(direction.len() > 0){
-            if(Math.abs(direction.x) > Math.abs(direction.y)){
-                if(direction.x > 0){
-                    animator.start(7);
-                }else{
-                    animator.start(6);
-                }
-            }else{
-                if(direction.y > 0){
-                    animator.start(4);
-                }else{
-                    animator.start(5);
-                }
-            }
-        }else if(state == State.Working){
-            animator.start(2);
-        }else{
-            animator.start(8);
         }
 
         if(state != State.Working) return;
@@ -285,6 +299,10 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
             target(game.worldManager.coffee.getX(), game.worldManager.coffee.getY() - 90);
             target(game.worldManager.coffee.getX(), game.worldManager.coffee.getY() - 20);
         }
+    }
+
+    public float getWorkEfficiency() {
+        return state == State.Working ? interest : 0;
     }
 
     enum State {
