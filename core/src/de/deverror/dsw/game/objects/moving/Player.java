@@ -150,6 +150,7 @@ public class Player implements Entity {
     private void loadAbilities(){
         abilities = new HashMap<>();
         abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("scream"), 2f, SCREAM));
+        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("interact"), 0f, SCREAM));
     }
 }
 
