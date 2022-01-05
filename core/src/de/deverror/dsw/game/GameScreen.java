@@ -138,7 +138,7 @@ public class GameScreen implements Screen {
         vfx.beginInputCapture();
         batch.begin();
         renderer.render(batch);
-        particles.render(batch);
+        particles.ceilrender(batch);
         batch.end();
 
         vfx.endInputCapture();
@@ -231,10 +231,15 @@ public class GameScreen implements Screen {
 
     private void loadParticles(){
         particles = new ParticleRenderer();
-        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.05f));
-        particles.addParticleType(1, new ParticleType(textureAtlas.findRegion("smoke"), 0.3f));
-        particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f));
-        particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f));
+        particles.addParticleType(0, new ParticleType(textureAtlas.findRegion("Chef"), 0.05f, true));
+        particles.addParticleType(1, new ParticleType(textureAtlas.findRegion("smoke"), 0.3f, false));
+        particles.addParticleType(2, new ParticleType(textureAtlas.findRegion("smoke"), 1.5f, false));
+        particles.addParticleType(3, new ParticleType(textureAtlas.findRegion("fire/3"), 0.2f, false));
+        particles.addParticleType(4, new ParticleType(textureAtlas.findRegion("Blatt_partikel"), 1f, true));
+    }
+
+    public void renderFloorParticles(SpriteBatch batch){
+        particles.floorrender(batch);
     }
 
     public void shake() {

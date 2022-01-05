@@ -24,13 +24,26 @@ public class ParticleRenderer {
         }
     }
 
-    public void render(Batch batch){
+    public void floorrender(Batch batch){
         for(Map.Entry<Integer, ParticleType> entry : particles.entrySet()){
-            ParticleType type = entry.getValue();
-            float centerX = type.texture.getRegionWidth()/2f;
-            float centerY = type.texture.getRegionHeight()/2f;
-            for(float[] particle : type.getParticles())
-            batch.draw(type.texture, particle[0], particle[1], centerX, centerY, centerX*2, centerY*2, type.scale, type.scale, particle[4]);
+            if(entry.getValue().floor){
+                ParticleType type = entry.getValue();
+                float centerX = type.texture.getRegionWidth()/2f;
+                float centerY = type.texture.getRegionHeight()/2f;
+                for(float[] particle : type.getParticles())
+                    batch.draw(type.texture, particle[0], particle[1], centerX, centerY, centerX*2, centerY*2, type.scale, type.scale, particle[4]);
+            }
+        }
+    }
+    public void ceilrender(Batch batch){
+        for(Map.Entry<Integer, ParticleType> entry : particles.entrySet()){
+            if(!entry.getValue().floor){
+                ParticleType type = entry.getValue();
+                float centerX = type.texture.getRegionWidth()/2f;
+                float centerY = type.texture.getRegionHeight()/2f;
+                for(float[] particle : type.getParticles())
+                    batch.draw(type.texture, particle[0], particle[1], centerX, centerY, centerX*2, centerY*2, type.scale, type.scale, particle[4]);
+            }
         }
     }
 
@@ -39,7 +52,7 @@ public class ParticleRenderer {
         for(int i = 0; i < amount; i++) {
             double speedMultiplier = Math.random();
             double dir = (direction+distribution -2*distribution*Math.random())*(2*Math.PI)/360;
-            type.addParticle(x, y, (float) (Math.cos(dir)*speed*speedMultiplier), (float) (Math.sin(dir)*speed*speedMultiplier), 0, (float)(rotSpeed*speedMultiplier), (float) (duration*Math.random()));
+            type.addParticle(x, y, (float) (Math.cos(dir)*speed*speedMultiplier)*1.2f, (float) (Math.sin(dir)*speed*speedMultiplier)*0.9f, 0, (float)(rotSpeed*speedMultiplier), (float) (duration*Math.random()));
         }
     }
 }
