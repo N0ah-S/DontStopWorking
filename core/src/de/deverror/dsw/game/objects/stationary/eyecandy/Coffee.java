@@ -16,6 +16,7 @@ public class Coffee extends Eyecandy {
         current = 0;
         state = 0;
         speed = 4f;
+        dim = true;
     }
 
     @Override

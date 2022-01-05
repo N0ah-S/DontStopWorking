@@ -8,20 +8,26 @@ import com.badlogic.gdx.physics.box2d.*;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.objects.Entity;
 import de.deverror.dsw.game.objects.Reciever;
+import de.deverror.dsw.ui.Ability;
 import de.deverror.dsw.util.Animation;
 import de.deverror.dsw.util.Animator;
 import de.deverror.dsw.util.Assets;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static de.deverror.dsw.util.StaticUtil.*;
 import static de.deverror.dsw.util.GameSettings.*;
 
 public class Player implements Entity {
     Body body;
-    GameScreen main;
+    public GameScreen main;
 
     Animator animator;
     int dir;
     float walkcooldown;
+
+    HashMap<Integer, Ability> abilities;
 
     public Player(GameScreen main){
         this.main = main;
@@ -48,6 +54,7 @@ public class Player implements Entity {
 
         animator = new Animator();
         loadAnimations();
+        loadAbilities();
     }
 
     @Override
@@ -67,10 +74,16 @@ public class Player implements Entity {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(animator.getTexture(), getX()-70, getY()-15);
+        for(Map.Entry<Integer, Ability> entry : abilities.entrySet()){
+            entry.getValue().render(batch);
+        }
     }
 
     @Override
     public void update(float delta) {
+        for(Map.Entry<Integer, Ability> entry : abilities.entrySet()){
+            entry.getValue().update(delta);
+        }
         walkcooldown -= delta;
         Vector2 velocity = new Vector2(0, 0);
         if(key(UP)) {
@@ -89,8 +102,9 @@ public class Player implements Entity {
             velocity.x += PLAYERSPEED;
             dir = 3;
         }
-        if(key(SCREAM)) {
+        if(key(SCREAM) && abilities.get(0).isReady()) {
             scream();
+            abilities.get(0).use();
         }
         if(velocity.x == 0 && velocity.y == 0) {
             animator.start(dir);
@@ -131,6 +145,11 @@ public class Player implements Entity {
         animator.addAnimation(5, new Animation(animator, getIndexAnimation("chef_walkfront", 11, atlas), 0.7f, 1));
         animator.addAnimation(6, new Animation(animator, getIndexAnimation("chef_walkleft", 8, atlas), 0.7f, 2));
         animator.addAnimation(7, new Animation(animator, getIndexAnimation("chef_walkright", 8, atlas), 0.7f, 3));
+    }
+
+    private void loadAbilities(){
+        abilities = new HashMap<>();
+        abilities.put(0, new Ability(this, 200, 10, main.textureAtlas.findRegion("scream"), 2f, SCREAM));
     }
 }
 
