@@ -115,11 +115,11 @@ public class Player implements Entity {
             velocity.x += PLAYERSPEED;
             dir = 3;
         }
-        if(key(SCREAM) && abilities.get(0).isReady()) {
+        if(keyjust(SCREAM) && abilities.get(0).isReady()) {
             scream();
             abilities.get(0).use();
         }
-        if(key(INTERACT) && abilities.get(0).isReady()){
+        if(keyjust(INTERACT) && abilities.get(0).isReady()){
             for(Entity entity : main.entities){
                 if(entity instanceof Interactive){
                     float dist = len(entity.getX()-getX(), entity.getY()-getY());

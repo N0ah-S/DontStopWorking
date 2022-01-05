@@ -16,13 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.deverror.dsw.Main;
 import de.deverror.dsw.game.particles.ParticleRenderer;
 import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
-import de.deverror.dsw.util.ThreadUtil;
-
 import static de.deverror.dsw.util.StaticUtil.*;
 
 public class MainMenuScreen implements Screen {
@@ -51,7 +50,7 @@ public class MainMenuScreen implements Screen {
         backgroundImage.setSize(width(),height());
         stage = new Stage(new FitViewport(width(), height(), new OrthographicCamera()));
         menuTable = new Table();
-        Skin menuSkin = main.assets.get(Assets.MENUSKIN), menuAtlas;
+        Skin menuSkin = main.assets.get(Assets.MENUSKIN);
 
         ImageButton playButton = new ImageButton(menuSkin, "play");
         ImageButton settingsButton = new ImageButton(menuSkin, "settings");
@@ -62,7 +61,6 @@ public class MainMenuScreen implements Screen {
         menuTable.bottom().add(exitButton).size( 250, 145).pad(40);
         stage.addActor(backgroundImage);
         stage.addActor(menuTable);
-        Gdx.input.setInputProcessor(stage);
 
         menuTable.addAction(Actions.sequence(Actions.moveBy(0.0F, -250F), Actions.delay(1.0F), Actions.moveBy(0.0F, 250F, 1.0F, Interpolation.swing)));
         backgroundImage.addAction(Actions.sequence(Actions.alpha(0.0F), Actions.fadeIn(1.0F)));
@@ -84,9 +82,9 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("EXIT!");
                 particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
-                ThreadUtil.startDelayedInMain(() -> { Gdx.app.exit(); }, 500);
             }
         });
+        Gdx.input.setInputProcessor(stage);
     }
 
 
@@ -112,6 +110,7 @@ public class MainMenuScreen implements Screen {
 
         menuTable.invalidateHierarchy();
         menuTable.setSize(width, height);
+        menuTable.setX(width/2f, Align.center);
     }
 
     @Override
@@ -120,11 +119,13 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void resume() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void hide() {
-        dispose();    }
+
+    }
 
     @Override
     public void dispose() {
@@ -132,6 +133,7 @@ public class MainMenuScreen implements Screen {
         stage.dispose();
         background.dispose();
         menuSkin.dispose();
+        menuAtlas.dispose();
 
     }
 

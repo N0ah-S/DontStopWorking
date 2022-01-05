@@ -1,54 +1,60 @@
-
 UIButtons.png
-size: 256, 128
+size: 64, 302
 format: RGBA8888
-filter: Nearest, Nearest
+filter: Nearest,Nearest
 repeat: none
+dark
+  rotate: false
+  xy: 0, 0
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 Exit
   rotate: false
-  xy: 68, 37
+  xy: 0, 64
   size: 50, 29
   orig: 50, 29
   offset: 0, 0
   index: -1
 ExitPressed
   rotate: false
-  xy: 68, 68
+  xy: 0, 93
   size: 50, 29
   orig: 50, 29
   offset: 0, 0
   index: -1
 Papier
   rotate: false
-  xy: 2, 33
+  xy: 0, 122
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 Play
   rotate: false
-  xy: 120, 68
+  xy: 0, 186
   size: 50, 29
   orig: 50, 29
   offset: 0, 0
   index: -1
 PlayPressed
   rotate: false
-  xy: 172, 68
+  xy: 0, 215
   size: 50, 29
   orig: 50, 29
   offset: 0, 0
   index: -1
 Settings
   rotate: false
-  xy: 2, 2
+  xy: 0, 244
   size: 50, 29
   orig: 50, 29
   offset: 0, 0
   index: -1
 SettingsPressed
   rotate: false
-  xy: 120, 37
+  xy: 0, 273
   size: 50, 29
   orig: 50, 29
   offset: 0, 0

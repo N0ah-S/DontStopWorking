@@ -79,7 +79,7 @@ public class WorldManager {
         if(popups != null) {
             popupFont.setColor(0.3f, 1f, 0.15f, fade);
             for (int i = 0; i < popups.length; i++) {
-                if(popups[i][POINTS] >= 1) popupFont.draw(batch, "+" + ((int) popups[i][POINTS]), popups[i][X], popups[i][Y] - untilNextCheck * 4);
+                popupFont.draw(batch, "+" + ((int) popups[i][POINTS] / 3), popups[i][X], popups[i][Y] - untilNextCheck * 4);
             }
         }
     }

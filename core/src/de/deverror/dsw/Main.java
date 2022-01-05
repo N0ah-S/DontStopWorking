@@ -1,7 +1,6 @@
 package de.deverror.dsw;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.ui.MainMenuScreen;
 import de.deverror.dsw.util.Assets;
+import de.deverror.dsw.util.StaticUtil;
 import de.deverror.dsw.util.ThreadUtil;
 
 public class Main extends Game {
@@ -26,7 +26,7 @@ public class Main extends Game {
 		loadAssets();
 
 		mainMenu = new MainMenuScreen(this);
-		game = new GameScreen(assets);
+		game = new GameScreen(assets, this);
 
 		setScreen(mainMenu);
 	}
