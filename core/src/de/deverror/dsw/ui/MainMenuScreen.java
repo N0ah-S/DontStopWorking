@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.deverror.dsw.Main;
+import de.deverror.dsw.game.GameScreen;
 import de.deverror.dsw.game.particles.ParticleRenderer;
 import de.deverror.dsw.game.particles.ParticleType;
 import de.deverror.dsw.util.Assets;
@@ -69,6 +70,7 @@ public class MainMenuScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("PLAY!");
                 particleRenderer.spawn(0, 90, 180, event.getStageX(),event.getStageY(), 300, 180, 30, 3f);
+                main.game = new GameScreen(main.assets, main);
                 main.changeScreen(main.game);
             }
         });

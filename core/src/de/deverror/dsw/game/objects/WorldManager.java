@@ -63,6 +63,9 @@ public class WorldManager {
     public void updateInterest() {
         interest = 0;
         for(Worker worker : workers) interest += worker.interest;
+        if(interest < interestMax*MININTEREST){
+            main.openMenu(0);
+        }
     }
 
     public void renderUntransformed(SpriteBatch batch) {
@@ -79,7 +82,7 @@ public class WorldManager {
         if(popups != null) {
             popupFont.setColor(0.3f, 1f, 0.15f, fade);
             for (int i = 0; i < popups.length; i++) {
-                popupFont.draw(batch, "+" + ((int) popups[i][POINTS] / 3), popups[i][X], popups[i][Y] - untilNextCheck * 4);
+                if(popups[i][POINTS] > 0) popupFont.draw(batch, "+" + ((int) popups[i][POINTS]), popups[i][X], popups[i][Y] - untilNextCheck * 4);
             }
         }
     }

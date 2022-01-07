@@ -12,6 +12,8 @@ import de.deverror.dsw.util.Assets;
 import de.deverror.dsw.util.StaticUtil;
 import de.deverror.dsw.util.ThreadUtil;
 
+import java.util.HashMap;
+
 public class Main extends Game {
 	public AssetManager assets;
 
@@ -26,7 +28,6 @@ public class Main extends Game {
 		loadAssets();
 
 		mainMenu = new MainMenuScreen(this);
-		game = new GameScreen(assets, this);
 
 		setScreen(mainMenu);
 	}
@@ -60,5 +61,10 @@ public class Main extends Game {
 
     public void changeScreen(final Screen screen) {
 		ThreadUtil.startDelayedInMain(() -> { setScreen(screen); }, 500);
+    }
+
+    public void resetGame() {
+		game = new GameScreen(assets, this);
+		setScreen(game);
     }
 }

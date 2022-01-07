@@ -139,6 +139,9 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         if(keyjust(MENU)){
             if(paused && menu == 2){
+                labels[0].setVisible(false);
+                labels[1].setVisible(false);
+                labels[2].setVisible(false);
                 paused = false;
                 buttons[0].addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
                 buttons[1].addAction(Actions.sequence(Actions.moveBy(0.0F, -500), Actions.delay(0.2f), Actions.moveBy(0.0F, 500, 0.5F, Interpolation.swing)));
@@ -327,9 +330,10 @@ public class GameScreen implements Screen {
         ImageButton playButton = new ImageButton(menuSkin, "play");
         ImageButton settingsButton = new ImageButton(menuSkin, "settings");
         ImageButton exitButton = new ImageButton(menuSkin, "exit");
-        Label won = new Label("Day Finished", menuSkin, "font", Color.GREEN);
-        Label loss = new Label("You're fired", menuSkin, "font", Color.RED);
-        Label menu = new Label("Pause", menuSkin, "font", Color.WHITE);
+        Label won = new Label("Day Finished", menuSkin, "font", "green");
+        Label loss = new Label("You're fired", menuSkin, "font", "red");
+        Label menu = new Label("Pause", menuSkin, "font", "white");
+        won.setColor(1, 1, 1, 1);
 
         playButton.setWidth(200);
         playButton.setHeight(120);
@@ -363,6 +367,9 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("PLAY!");
                 if(GameScreen.menu == 2) paused = false;
+                else{
+                    main.resetGame();
+                }
             }
         });
         settingsButton.addListener(new ClickListener() {
@@ -381,5 +388,9 @@ public class GameScreen implements Screen {
     public void openMenu(int nr){
         paused = true;
         menu = nr;
+        labels[0].setVisible(false);
+        labels[1].setVisible(false);
+        labels[2].setVisible(false);
+        labels[nr].setVisible(true);
     }
 }

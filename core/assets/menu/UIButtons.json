@@ -31,16 +31,34 @@
   },
   "com.badlogic.gdx.graphics.g2d.BitmapFont": {
     "font": {
-      "file": "font.fnt"
+      "file": "font.fnt",
+      "fontColor": "white"
+    }
+  },
+  "com.badlogic.gdx.graphics.Color": {
+    "black": {
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 1
     },
-    "won": {
-      "file": "font.fnt"
+    "white": {
+      "r": 1,
+      "g": 1,
+      "b": 1,
+      "a": 1
     },
-    "won": {
-      "file": "font.fnt"
+    "green": {
+      "r": 0.1,
+      "g": 0.8,
+      "b": 0.1,
+      "a": 1
     },
-    "won": {
-      "file": "font.fnt"
+    "red": {
+      "r": 0.9,
+      "g": 0.1,
+      "b": 0.1,
+      "a": 1
     }
   }
 }

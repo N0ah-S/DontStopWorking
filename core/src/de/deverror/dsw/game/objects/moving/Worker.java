@@ -104,7 +104,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
         body.setTransform(x, y - 26, 0);
         shape.dispose();
 
-        interest = 12; //StaticUtil.random.nextInt(4); //UnToDo actual values
+        interest = 15; //StaticUtil.random.nextInt(4); //UnToDo actual values
 
     }
 
@@ -157,7 +157,7 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
             boolean up = (ty + tolerance < y);
             boolean down = (ty - tolerance > y);
 
-            if(state == State.Walking || state == (State.Talking)) {
+            if(state == State.Walking || state == State.Talking) {
                 float dstC = getPosition().dst(game.worldManager.coffee.getX(), game.worldManager.coffee.getY());
                 for (Worker w : game.worldManager.workers) {
                     float dst = getPosition().dst(w.getPosition());
@@ -197,10 +197,6 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
                         animator.start(5);
                     }
                 }
-            } else if(state == State.Working){
-                animator.start(2);
-            } else {
-                animator.start(8);
             }
 
             if (left && !right)         body.setLinearVelocity(-speed, 0);
@@ -221,6 +217,8 @@ public class Worker extends SteerableAdapter<Vector2> implements Entity, Recieve
                         break;
                 }
             }
+        }else{
+            animator.start(2);
         }
 
         if(state != State.Working && state == State.Talking) return;

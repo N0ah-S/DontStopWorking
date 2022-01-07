@@ -33,7 +33,7 @@ public class Decoration implements Entity {
     @Override
     public void render(SpriteBatch batch) {
         batch.setColor(Color.LIGHT_GRAY);
-        batch.draw(texture, x-64, y-64);
+        batch.draw(texture, x, y);
         batch.setColor(Color.WHITE);
     }
 
